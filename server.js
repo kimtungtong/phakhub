@@ -34,5 +34,16 @@ app.post('/api/orders', async (req, res) => {
   res.json({ success: true, message: 'ส่งออเดอร์เข้าฟาร์มเรียบร้อยแล้วครับ' })
 })
 
+// 3. API สำหรับหน้าแอดมิน (คนขับรถ) ใช้ดึงรายการสั่งซื้อทั้งหมดมาส่งของ
+app.get('/api/admin/orders', async (req, res) => {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false }) // เอาออเดอร์ใหม่ล่าสุดขึ้นก่อน
+    
+  if (error) return res.status(500).json({ error: error.message })
+  res.json(data)
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`🚀 เซิร์ฟเวอร์แอป ผักค้าบ รันแล้วที่ http://localhost:${PORT}`))

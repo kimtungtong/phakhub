@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบหลังบ้าน - ผักค้าบ</title>
+  <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+  <main class="max-w-4xl mx-auto">
+    <header class="bg-slate-800 p-5 rounded-2xl text-white mb-6 shadow-md flex justify-between items-center">
+      <div>
+        <h1 class="text-xl font-bold">🧑‍🌾 แดชบอร์ดคนขับรถจัดส่ง (ฟาร์มผักค้าบ)</h1>
+        <p class="text-xs opacity-80 mt-1">รายการพรีออเดอร์ผักสดจากกลุ่มบ้านลูกค้าในหนองบัวลำภู</p>
+      </div>
+      <button onclick="fetchOrders()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl text-sm transition">
+        🔄 อัปเดตข้อมูล
+      </button>
+    </header>
+
+    <div id="orders-list" class="grid grid-cols-1 gap-4">
+      <!-- รายการออเดอร์ลูกค้าจะมาแสดงตรงนี้ -->
+    </div>
+  </main>
+
+  <script>
+    let productsList = [];
+
+    // ดึงข้อมูลผักเพื่อเอาชื่อผักมาแมตช์กับ ID
+    async function fetchProducts() {
+      const res = await fetch('/api/products');
+      productsList = await res.json();
+      fetchOrders();
+    }
+
+    async function fetchOrders() {
+      const res = await fetch('/api/admin/orders');
+      const orders = await res.json();
+      renderOrders(orders);
+    }
+
+    function renderOrders(orders) {
+      const container = document.getElementById('orders-list');
+      if (orders.length === 0) {
+        container.innerHTML = `<div class="text-center p-8 text-gray-500 bg-white rounded-xl shadow-sm">ยังไม่มีออเดอร์สั่งซื้อเข้ามาในระบบครับ</div>`;
+        return;
+      }
+
+      container.innerHTML = orders.map(order => {
+        // แปลงข้อมูลไอเทม JSON ของตะกร้าสินค้าให้เป็นข้อความรายชื่อผักที่อ่านง่าย
+        const itemsDetail = Object.keys(order.items).map(pId => {
+          const p = productsList.find(prod => prod.id == pId);
+          return p ? `• ${p.name} จำนวน ${order.items[pId]} ${p.unit_name}` : '';
+        }).join('<br>');
+
+        const date = new Date(order.created_at).toLocaleString('th-TH');
+
+        return `
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex flex-col md:flex-row justify-between gap-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-3">
+                <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2.5 py-1 rounded-full">📦 ออเดอร์ #${order.id}</span>
+                <span class="text-xs text-gray-400">${date}</span>
+              </div>
+              <h3 class="font-bold text-gray-900 text-lg">👤 คุณ: ${order.customer_name}</h3>
+              <p class="text-sm text-gray-700 font-semibold">📞 โทร: <a href="tel:${order.phone}" class="text-blue-600 underline">${order.phone}</a></p>
+              <p class="text-sm text-gray-600">📍 ที่อยู่จัดส่ง: ${order.delivery_address} (${order.sub_district})</p>
+              <div class="bg-green-50 p-3 rounded-lg border border-green-100 text-sm text-green-900 mt-2">
+                <p class="font-bold mb-1">🥬รายการผักที่สั่ง:</p>
+                <p class="leading-relaxed">${itemsDetail}</p>
+              </div>
+            </div>
+            <div class="flex flex-col justify-between items-end min-w-[150px]">
+              <div class="text-right">
+                <p class="text-xs text-gray-400">ยอดเงินต้องเก็บหน้าบ้าน</p>
+                <p class="text-xl font-black text-green-600">${order.total_price} บาท</p>
+              </div>
+              <span class="w-full text-center text-xs font-bold py-2 px-4 rounded-lg bg-yellow-100 text-yellow-800 mt-4">
+                ⏳ รอจัดส่งวันพรุ่งนี้
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    fetchProducts();
+  </script>
+</body>
+</html>
