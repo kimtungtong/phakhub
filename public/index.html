@@ -4,169 +4,128 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <script src="https://tailwindcss.com"></script>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
-    .app-container { max-w: 480px; margin: 0 auto; padding: 16px; background-color: #ffffff; min-h-screen; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid #f1f5f9; margin-bottom: 20px; }
-    .logo-zone { display: flex; align-items: center; gap: 6px; }
-    .logo-title { font-size: 19px; font-weight: 800; color: #059669; }
-    .logo-badge { background-color: #d1fae5; color: #065f46; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
-    .auth-buttons { display: flex; gap: 8px; align-items: center; }
-    .btn-text { color: #64748b; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; }
-    .btn-solid { background-color: #0f172a; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; }
-    
-    .premium-banner { background-color: #047857; color: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px -5px rgba(4, 120, 87, 0.4); margin-bottom: 24px; position: relative; overflow: hidden; background-image: radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.3) 0%, transparent 50%), linear-gradient(135deg, #047857 0%, #065f46 100%); }
-    .banner-tag { background-color: rgba(255,255,255,0.22); color: #ffffff; font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; }
-    .banner-heading { font-size: 24px; font-weight: 800; margin-top: 12px; }
-    .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 8px; font-weight: 300; line-height: 1.6; }
-    
-    .filter-bar { display: flex; gap: 8px; background-color: #f1f5f9; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: #64748b; background: none; }
-    .tab-active { background-color: #ffffff; color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-    .section-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px; }
-    .section-label { font-size: 15px; font-weight: 700; color: #0f172a; }
-    .section-badge { background-color: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; border: 1px solid #ffedd5; }
-    
-    .products-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .product-item { background-color: #ffffff; padding: 12px; border-radius: 14px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
-    .item-meta { display: flex; align-items: center; gap: 12px; }
-    .item-pic { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .meta-green-oak { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
-    .meta-red-oak { background-color: #fdf2f8; border: 1px solid #fbcfe8; }
-    .meta-cos { background-color: #ecfdf5; border: 1px solid #a7f3d0; }
-    .meta-butter { background-color: #f0fdf4; border: 1px solid #c6f6d5; }
-    .meta-chili { background-color: #fff5f5; border: 1px solid #fed7d7; }
-    .meta-onion { background-color: #f0fdfa; border: 1px solid #ccfbf1; }
-    .meta-holy { background-color: #f4fbf7; border: 1px solid #d1fae5; }
-    .meta-lemon { background-color: #fefce8; border: 1px solid #fef08a; }
-    .meta-cucumber { background-color: #ecfdf5; border: 1px solid #bbf7d0; }
-    .meta-tomato { background-color: #fff5f5; border: 1px solid #ffccd5; }
-    .meta-cabbage { background-color: #f9fafb; border: 1px solid #e5e7eb; }
-    .meta-mushroom { background-color: #fcf8f2; border: 1px solid #eddcc6; }
-    
-    .title-row { display: flex; align-items: center; gap: 6px; }
-    .item-title { font-size: 14px; font-weight: 700; color: #0f172a; }
-    .tag-category { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 4px; }
-    .cat-hydro { background-color: #f0fdf4; color: #16a34a; }
-    .cat-kitchen { background-color: #fffbeb; color: #d97706; }
-    .item-price { font-size: 13px; font-weight: 700; color: #059669; margin-top: 2px; }
-    
-    .control-box { display: flex; align-items: center; gap: 8px; background-color: #f8fafc; padding: 4px; border-radius: 10px; }
-    .btn-action { width: 26px; height: 26px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; }
-    .btn-dec { background-color: #ffffff; color: #64748b; border: 1px solid #e2e8f0; }
-    .btn-inc { background-color: #059669; color: #ffffff; }
-    .count-display { font-size: 12px; font-weight: 700; width: 14px; text-align: center; }
-    
-    .form-card { background-color: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e2e8f0; margin-bottom: 24px; display: none; }
-    .form-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
-    .input-box { width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; font-size: 12px; outline: none; margin-bottom: 8px; }
-    .btn-order-submit { width: 100%; background-color: #059669; color: #ffffff; font-weight: 700; padding: 12px; border-radius: 8px; border: none; font-size: 13px; cursor: pointer; }
-    .info-card { background-color: #f8fafc; border: 1px solid #f1f5f9; padding: 14px; border-radius: 14px; margin-bottom: 12px; font-size: 12px; }
-    .info-bold { font-weight: 700; color: #0f172a; margin-bottom: 2px; }
-    .footer { text-align: center; padding-top: 16px; border-top: 1px solid #f1f5f9; font-size: 11px; color: #94a3b8; }
+    body { font-family: 'Anuphan', sans-serif; }
+    .modal-backdrop { background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
   </style>
 </head>
-<body>
+<body class="bg-slate-50/60 min-h-screen text-slate-800 antialiased pb-20">
 
-  <div class="app-container">
-    <nav class="navbar">
-      <div class="logo-zone">
-        <span>🌾</span>
-        <span class="logo-title">ผักค้าบ</span>
-        <span class="logo-badge">Pro</span>
+  <div class="app-container max-w-md mx-auto px-4 bg-white min-h-screen shadow-md">
+    <!-- แถบเมนูด้านบนเรียบหรู -->
+    <nav class="navbar flex justify-between items-center py-4 border-b border-slate-100 mb-6">
+      <div class="logo-zone flex items-center gap-2">
+        <span class="text-xl">🌾</span>
+        <span class="font-bold text-lg tracking-tight text-emerald-600">ผักค้าบ</span>
+        <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">Pro</span>
       </div>
-      <div id="auth-zone" class="auth-buttons">
-        <button type="button" onclick="toggleAuth(true)" class="btn-text">เข้าสู่ระบบ</button>
-        <button type="button" onclick="toggleAuth(true)" class="btn-solid">สมัครสมาชิก</button>
+      <div id="auth-zone" class="auth-buttons flex gap-2 items-center text-xs">
+        <button type="button" onclick="openLoginModal()" class="text-slate-500 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
+        <button type="button" onclick="openRegisterModal()" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm hover:bg-slate-800 transition">สมัครสมาชิก</button>
       </div>
     </nav>
 
-    <header class="premium-banner">
-      <span class="banner-tag">Premium Delivery</span>
-      <h1 class="banner-heading">ผักสดจากแปลง วันต่อวัน</h1>
-      <p class="banner-sub">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
+    <!-- บอร์ดแบนเนอร์สีเขียวเงาหรูหราลวดลายเวกเตอร์ธรรมชาติ -->
+    <header class="premium-banner bg-emerald-600 text-white rounded-2xl p-6 shadow-md mb-6 relative overflow-hidden bg-gradient-to-tr from-emerald-700 via-emerald-600 to-green-500">
+      <span class="banner-tag bg-white/20 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider text-emerald-100">Premium Delivery</span>
+      <h1 class="banner-heading text-xl font-bold mt-2">ผักสดจากแปลง วันต่อวัน</h1>
+      <p class="banner-sub text-xs opacity-90 mt-1 font-light leading-relaxed">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
     </header>
 
-    <div class="filter-bar">
-      <button type="button" id="tab-all" onclick="filterCat('all')" class="tab-btn tab-active">🥗 ทั้งหมด</button>
-      <button type="button" id="tab-hydro" onclick="filterCat('hydro')" class="tab-btn">💧 ไฮโดรฯ</button>
-      <button type="button" id="tab-kitchen" onclick="filterCat('kitchen')" class="tab-btn">🏡 สวนครัว</button>
+    <!-- แผงปุ่มสลับแท็บประเภทผัก -->
+    <div class="filter-bar flex gap-2 bg-slate-100 p-1 rounded-xl mb-5">
+      <button type="button" id="tab-all" onclick="filterCat('all')" class="tab-btn flex-1 text-center text-xs font-bold py-2 rounded-lg bg-white text-slate-900 shadow-sm">🥗 ทั้งหมด</button>
+      <button type="button" id="tab-hydro" onclick="filterCat('hydro')" class="tab-btn flex-1 text-center text-xs font-bold py-2 rounded-lg text-slate-500">💧 ไฮโดรฯ</button>
+      <button type="button" id="tab-kitchen" onclick="filterCat('kitchen')" class="tab-btn flex-1 text-center text-xs font-bold py-2 rounded-lg text-slate-500">🏡 สวนครัว</button>
     </div>
 
-    <section>
-      <div class="section-row">
-        <h2 class="section-label">🥬 รายการผักสดพร้อมส่งพรุ่งนี้</h2>
-        <span id="delivery-badge" class="section-badge">🚚 คิดค่าส่งตามระยะทางจริง</span>
+    <!-- รายการรายการผักสดพร้อมสั่งซื้อ -->
+    <section class="mb-6">
+      <div class="section-row flex justify-between items-center mb-3">
+        <h2 class="section-label font-bold text-slate-900 text-sm flex items-center gap-1.5">🥬 รายการผักสดพร้อมส่งพรุ่งนี้</h2>
+        <span id="delivery-badge" class="section-badge bg-f0fdf4 text-emerald-600 border border-emerald-100 text-[10px] font-semibold px-2 py-0.5 rounded-full">🚚 คิดค่าส่งตามระยะทางจริง</span>
       </div>
-      <div id="product-list" class="products-grid"></div>
+      <div id="product-list" class="products-grid flex flex-col gap-3"></div>
     </section>
 
-    <!-- ตะกร้าและฟอร์มระบุข้อมูลจัดส่ง + ข้อมูลการตลาดขั้นสูง -->
-    <div id="cart-section" class="form-card">
-      <h2 class="form-title">📍 ระบุข้อมูลพิกัดและระยะทางจัดส่ง</h2>
-      <form id="order-form">
-        <input type="text" id="name" required class="input-box" placeholder="ชื่อ - นามสกุล ของคุณ">
-        <input type="tel" id="phone" required class="input-box" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
-        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
+    <!-- ตะกร้าสรุปยอดบิลและระบบจัดทำพรีออเดอร์ -->
+    <div id="cart-section" class="hidden bg-white rounded-2xl p-5 border border-slate-100 space-y-4 shadow-sm mb-6">
+      <h2 class="font-bold text-slate-900 text-sm flex items-center gap-1.5 border-b pb-2">🛒 สรุปรายการคำสั่งซื้อของคุณ</h2>
+      
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="promo-code" class="w-full bg-slate-50 border p-3 rounded-xl text-xs outline-none focus:border-emerald-500" placeholder="กรอกโค้ดส่วนลดวันสำคัญ (เช่น PROMO2026)">
+        <button type="button" onclick="applyPromo()" class="bg-slate-900 text-white font-semibold px-4 rounded-xl text-xs">ใช้โค้ด</button>
+      </div>
+
+      <div id="bill-details" class="text-xs text-slate-600 bg-slate-50 p-4 rounded-xl space-y-2 leading-relaxed"></div>
+      <button type="button" onclick="submitPreOrder()" id="submit-btn" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl shadow-md text-sm">ยืนยันการทำรายการสั่งซื้อ</button>
+    </div>
+
+    <!-- บอร์ดข้อมูลกติกาโปรโมชั่นส่วนลด -->
+    <div class="info-card bg-amber-50/50 border border-amber-100 p-4 rounded-xl text-xs text-slate-600 space-y-1 mb-6">
+      <p class="info-bold font-bold text-amber-800">🎁 กติกาโปรโมชั่นจัดเต็มประจำฟาร์ม</p>
+      <p>• คิดค่าส่ง กม. ละ 5 บาท (ขั้นต่ำ 10 บาท / ไม่เกิน 1.5 กม. ส่งฟรี)<br>• ครบ 150.- ลดค่าส่ง 5.- / ครบ 300.- ลดค่าส่ง 10.- / ครบ 500.- ลดค่าส่ง 15.- / ครบ 1,000.- ส่งฟรีทุกระยะทาง!</p>
+    </div>
+
+    <footer class="footer border-t border-slate-100 pt-4 text-center text-[11px] text-slate-400">
+      <p class="font-bold text-slate-600">ศูนย์รวบรวมและจัดส่งฟาร์มผักค้าบ หนองบัวลำภู</p>
+      <p class="mt-0.5">© 2026 PhakKhab Pro. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- 👥 หน้าต่างป๊อปอัพ "สมัครสมาชิกกลุ่มพรีเมียม" (Register Modal) -->
+  <div id="register-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-5 space-y-4 shadow-2xl border border-slate-100">
+      <div class="flex justify-between items-center border-b pb-2">
+        <h3 class="font-bold text-slate-900 text-base">📝 แบบฟอร์มสมัครสมาชิกผักค้าบ Pro</h3>
+        <button onclick="closeRegisterModal()" class="text-slate-400 font-bold text-sm">✕</button>
+      </div>
+      <form id="register-form" class="space-y-3 text-xs" onsubmit="handleRegister(event)">
+        <input type="text" id="reg-name" required class="w-full bg-slate-50 border p-3 rounded-xl outline-none" placeholder="ชื่อ - นามสกุล ของคุณ">
+        <input type="tel" id="reg-phone" required class="w-full bg-slate-50 border p-3 rounded-xl outline-none" placeholder="เบอร์โทรศัพท์มือถือ">
+        <input type="text" id="reg-line" class="w-full bg-slate-50 border p-3 rounded-xl outline-none" placeholder="ไอดีไลน์ (LINE ID)">
+        <textarea id="reg-address" required class="w-full bg-slate-50 border p-3 rounded-xl outline-none h-16 resize-none" placeholder="ที่อยู่ปัจจุบัน / บ้านเลขที่ / หมู่บ้าน / ตำบล"></textarea>
         
-        <!-- 📊 ฟิลด์ข้อมูลการตลาด 1: เลือกเดือนเกิดเพื่อทำ Birthday Marketing -->
-        <select id="birth-month" required class="input-box" style="cursor:pointer;">
-          <option value="">🎂 เลือกเดือนเกิดของคุณ (รับสิทธิ์เซ็ตผักฟรีเดือนเกิด)</option>
-          <option value="มกราคม">มกราคม</option><option value="กุมภาพันธ์">กุมภาพันธ์</option>
-          <option value="มีนาคม">มีนาคม</option><option value="เมษายน">เมษายน</option>
-          <option value="พฤษภาคม">พฤษภาคม</option><option value="มิถุนายน">มิถุนายน</option>
-          <option value="กรกฎาคม">กรกฎาคม</option><option value="สิงหาคม">สิงหาคม</option>
-          <option value="กันยายน">กันยายน</option><option value="ตุลาคม">ตุลาคม</option>
-          <option value="พฤศจิกายน">พฤศจิกายน</option><option value="ธันวาคม">ธันวาคม</option>
-        </select>
-
-        <!-- 📊 ฟิลด์ข้อมูลการตลาด 2: เลือกขนาดครอบครัวเพื่อเสนอขายแพ็คผักที่เหมาะสม (Upselling) -->
-        <select id="family-size" required class="input-box" style="cursor:pointer;">
-          <option value="">👨‍👩‍👧‍👦 เลือกจำนวนสมาชิกในบ้าน (เพื่อจัดเซ็ตปริมาณผักที่พอเหมาะ)</option>
-          <option value="1 คน (ทานคนเดียว)">อยู่คนเดียว (รับเซ็ตมินิ)</option>
-          <option value="2-3 คน (ครอบครัวเล็ก)">ครอบครัวเล็ก 2-3 คน</option>
-          <option value="4 คนขึ้นไป (ครอบครัวใหญ่)">ครอบครัวใหญ่ 4 คนขึ้นไป</option>
-        </select>
-
-        <!-- กล่องสไลด์เลือกระยะทางส่งของ Grab-style -->
-        <div style="background-color:#f1f5f9; padding:12px; border-radius:10px; margin-bottom:12px;">
-          <label style="font-size:12px; font-weight:700; color:#334155; display:flex; justify-content:space-between; margin-bottom:6px;">
-            <span>📍 ระยะทางจากฟาร์มถึงบ้านคุณ:</span>
-            <span id="distance-val" style="color:#059669; font-weight:800;">3 กม.</span>
-          </label>
-          <input type="range" id="distance-range" min="1" max="15" value="3" oninput="changeDistance(this.value)" style="width:100%; accent-color:#059669; cursor:pointer;">
+        <!-- แถบสไลด์เลือกพิกัดจัดส่งพิกัดคงที่สไตล์ Grab -->
+        <div class="bg-slate-50 border p-3 rounded-xl space-y-2">
+          <div class="flex justify-between font-bold text-slate-700">
+            <span>📍 ระยะทางพิกัดส่งของถึงบ้านคุณ:</span>
+            <span id="reg-distance-text" class="text-emerald-600">3 กม.</span>
+          </div>
+          <input type="range" id="reg-distance" min="1" max="15" value="3" oninput="document.getElementById('reg-distance-text').innerText = this.value + ' กม.'" class="w-full accent-emerald-600 cursor-pointer">
         </div>
 
-        <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <input type="text" id="promo-code" class="input-box" style="margin-bottom:0;" placeholder="โค้ดส่วนลดวันสำคัญ (เช่น PROMO2026)">
-          <button type="button" onclick="applyPromo()" class="btn-solid" style="background-color:#059669; border-radius:8px;">ใช้โค้ด</button>
-        </div>
-
-        <div id="bill-details" style="font-size:12px; color:#475569; background-color:#f8fafc; padding:12px; border-radius:10px; margin-bottom:12px; line-height:1.7;"></div>
-
-        <button type="submit" id="submit-btn" class="btn-order-submit">ยืนยันการทำรายการสั่งซื้อ</button>
+        <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl shadow-md mt-1">💾 บันทึกข้อมูลและรับสิทธิ์ VIP</button>
       </form>
     </div>
+  </div>
 
-    <div class="info-card" style="background-color:#fffbeb; border-color:#fef3c7;">
-      <p class="info-bold" style="color:#b45309;">🎁 กติกาโปรโมชั่นส่วนลดจัดเต็มประจำฟาร์ม</p>
-      <p style="color:#d97706; line-height:1.5;">• สั่งครบ 150.- ลดค่าส่ง 5.- / ครบ 300.- ลดค่าส่ง 10.- / ครบ 500.- ลดค่าส่ง 15.-<br>• สั่งซื้อผักสดรวม **ครบ 1,000 บาทขึ้นไป ส่งฟรี 0 บาท ทุกระยะทาง!**</p>
+  <!-- 👥 หน้าต่างป๊อปอัพ "เข้าสู่ระบบด้วยเบอร์โทรเพื่อเชื่อมแต้มคลาวด์" (Login Modal) -->
+  <div id="login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-5 space-y-4 shadow-2xl border border-slate-100">
+      <div class="flex justify-between items-center border-b pb-2">
+        <h3 class="font-bold text-slate-900 text-base">🔑 เข้าสู่ระบบเพื่อดึงแต้มสะสม</h3>
+        <button onclick="closeLoginModal()" class="text-slate-400 font-bold text-sm">✕</button>
+      </div>
+      <form class="space-y-3 text-xs" onsubmit="handleLogin(event)">
+        <input type="tel" id="login-phone" required class="w-full bg-slate-50 border p-3 rounded-xl outline-none" placeholder="กรอกเบอร์โทรศัพท์ที่ใช้ลงทะเบียน">
+        <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl shadow-md">🔓 ล็อกอินเชื่อมโยงฐานข้อมูล</button>
+      </form>
     </div>
-
-    <footer class="footer">
-      <p class="footer-title">ศูนย์รวบรวมและจัดส่งฟาร์มผักค้าบ หนองบัวลำภู</p>
-      <p>© 2026 PhakKhab Pro. All rights reserved.</p>
-    </footer>
   </div>
 
   <script>
     let products = [];
     let cart = {};
-    let isLoggedIn = false;
     let selectedCat = 'all';
-    let currentDistance = 3;
     let isPromoApplied = false;
+    
+    // ข้อมูลโปรไฟล์จำลองของสมาชิกเมื่อล็อกอินสำเร็จ
+    let memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
 
     const itemConfig = {
       1: { icon: '🥬', bg: 'meta-green-oak' }, 2: { icon: '🥗', bg: 'meta-red-oak' },
@@ -181,36 +140,70 @@
       19: { icon: '🥬', bg: 'meta-cos' }, 20: { icon: '🍄', bg: 'meta-mushroom' }
     };
 
-    function toggleAuth(status) {
-      isLoggedIn = status;
+    function openRegisterModal() { document.getElementById('register-modal').classList.remove('hidden'); }
+    function closeRegisterModal() { document.getElementById('register-modal').classList.add('hidden'); }
+    function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+    function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+
+    // ฟังก์ชันจัดการสมัครสมาชิกพร้อมเก็บข้อมูลการตลาดครบถ้วน
+    function handleRegister(e) {
+      e.preventDefault();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const name = document.getElementById('reg-name').value.trim();
+      const line = document.getElementById('reg-line').value.trim();
+      const addr = document.getElementById('reg-address').value.trim();
+      const dist = Number(document.getElementById('reg-distance').value);
+
+      memberProfile = { isLoggedIn: true, name: name, phone: phone, lineId: line, address: addr, distance: dist, points: 0 };
+      updateAuthUI();
+      closeRegisterModal();
+      alert(`🎉 ลงทะเบียนเสร็จสิ้น! ยินดีต้อนรับคุณ ${name} สู่ระบบสมาชิก VIP ฟาร์มผักค้าบครับ`);
+      if (Object.keys(cart).length > 0) calculateBill();
+    }
+
+    // ฟังก์ชันเข้าสู่ระบบออนไลน์เชื่อมแต้มสะสม
+    async function handleLogin(e) {
+      e.preventDefault();
+      const phone = document.getElementById('login-phone').value.trim();
+      
+      const res = await fetch(`/api/member/${phone}`);
+      const data = await res.json();
+
+      memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก', phone: phone, lineId: 'เชื่อมต่อแล้ว', address: 'ดึงข้อมูลออเดอร์เดิม', distance: 3, points: data.points };
+      updateAuthUI();
+      closeLoginModal();
+      alert(`🔓 เข้าสู่ระบบสำเร็จ! คะแนนสะสมปัจจุบันคงเหลือรวมของคุณคือ: 👑 ${data.points} แต้ม`);
+      if (Object.keys(cart).length > 0) calculateBill();
+    }
+
+    function handleLogout() {
+      memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
+      updateAuthUI();
+      if (Object.keys(cart).length > 0) calculateBill();
+    }
+
+    function updateAuthUI() {
       const zone = document.getElementById('auth-zone');
-      if (isLoggedIn) {
+      if (memberProfile.isLoggedIn) {
         zone.innerHTML = `
-          <div style="display:flex; align-items:center; gap:6px; background-color:#fff7ed; padding:4px 10px; border-radius:9999px; border:1px solid #ffedd5; font-size:11px; font-weight:700;">
-            <span style="color:#c2410c;">👑 สมาชิกระดับ VIP</span>
-            <button type="button" onclick="toggleAuth(false)" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; margin-left:4px;">ออก</button>
+          <div class="flex items-center gap-2 bg-orange-50 p-1 pr-2.5 rounded-full border border-orange-100">
+            <span class="text-orange-700 font-bold">👑 VIP (👑 ${memberProfile.points} แต้ม)</span>
+            <button type="button" onclick="handleLogout()" class="text-red-500 font-bold ml-1">ออก</button>
           </div>
         `;
       } else {
         zone.innerHTML = `
-          <button type="button" onclick="toggleAuth(true)" class="btn-text">เข้าสู่ระบบ</button>
-          <button type="button" onclick="toggleAuth(true)" class="btn-solid">สมัครสมาชิก</button>
+          <button type="button" onclick="openLoginModal()" class="text-slate-500 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
+          <button type="button" onclick="openRegisterModal()" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm hover:bg-slate-800 transition">สมัครสมาชิก</button>
         `;
       }
-      if (Object.keys(cart).length > 0) calculateBill();
-    }
-
-    function changeDistance(val) {
-      currentDistance = Number(val);
-      document.getElementById('distance-val').innerText = `${val} กม.`;
-      calculateBill();
     }
 
     function applyPromo() {
       const code = document.getElementById('promo-code').value.trim().toUpperCase();
       if (code === 'PROMO2026') {
         isPromoApplied = true;
-        alert('✨ ใช้โค้ดสำเร็จ! ออเดอร์จัดส่งฟรี 0 บาททันทีครับ');
+        alert('✨ ใช้โค้ดสำเร็จ! ออเดอร์ประจำวันนี้ของคุณจะได้รับสิทธิ์จัดส่งฟรี 0 บาททันทีครับ');
       } else {
         isPromoApplied = false;
         alert('❌ ไม่พบโค้ดโปรโมชั่นนี้ในระบบปัจจุบันครับ');
@@ -222,8 +215,8 @@
       selectedCat = cat;
       ['all', 'hydro', 'kitchen'].forEach(c => {
         const el = document.getElementById(`tab-${c}`);
-        if (c === cat) el.classList.add('tab-active');
-        else el.classList.remove('tab-active');
+        if (c === cat) el.className = "tab-btn flex-1 text-center text-xs font-bold py-2 rounded-lg bg-white text-slate-900 shadow-sm";
+        else el.className = "tab-btn flex-1 text-center text-xs font-bold py-2 rounded-lg text-slate-500";
       });
       renderProducts();
     }
@@ -241,18 +234,18 @@
         const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green-oak' };
         const isHydro = p.category === 'hydro';
         return `
-          <div class="product-item">
-            <div class="item-meta">
-              <div class="item-pic ${conf.bg}">${conf.icon}</div>
+          <div class="product-item bg-white p-3 rounded-xl border border-slate-100 flex justify-between items-center shadow-sm">
+            <div class="item-meta flex items-center gap-3">
+              <div class="item-pic w-11 h-11 rounded-lg flex items-center justify-center text-xl ${conf.bg}">${conf.icon}</div>
               <div>
-                <div style="display:flex; align-items:center;"><h3 class="item-title">${p.name}</h3><span class="tag-category ${isHydro ? 'cat-hydro':'cat-kitchen'}">${isHydro ? '💧 ไฮโดร':'🏡 สวนครัว'}</span></div>
-                <p class="item-price">${p.price_per_unit} บาท <span style="color:#94a3b8; font-weight:400; font-size:11px;">/ ${p.unit_name}</span></p>
+                <div class="flex items-center"><h3 class="item-title font-bold text-xs text-slate-900">${p.name}</h3></div>
+                <p class="item-price text-xs font-bold text-emerald-600 mt-0.5">${p.price_per_unit} บาท <span class="text-[10px] text-slate-400 font-normal">/ ${p.unit_name}</span></p>
               </div>
             </div>
-            <div class="control-box">
-              <button type="button" onclick="updateCart(${p.id}, -1)" class="btn-action btn-dec">-</button>
-              <span class="count-display">${cart[p.id] || 0}</span>
-              <button type="button" onclick="updateCart(${p.id}, 1)" class="btn-action btn-inc">+</button>
+            <div class="control-box flex items-center gap-2 bg-slate-50 p-1 rounded-lg border">
+              <button type="button" onclick="updateCart(${p.id}, -1)" class="btn-action w-6 h-6 rounded bg-white font-bold text-slate-500 border">-</button>
+              <span class="count-display font-bold text-slate-800 text-xs w-4 text-center">${cart[p.id] || 0}</span>
+              <button type="button" onclick="updateCart(${p.id}, 1)" class="btn-action w-6 h-6 rounded bg-emerald-600 text-white font-bold">+</button>
             </div>
           </div>
         `;
@@ -274,12 +267,15 @@
 
       const sect = document.getElementById('cart-section');
       if (subTotal === 0) {
-        sect.style.display = 'none';
+        sect.classList.add('hidden');
         return;
       }
-      sect.style.display = 'block';
+      sect.classList.remove('hidden');
 
-      let baseDeliveryFee = currentDistance <= 1.5 ? 0 : Math.max(10, currentDistance * 5);
+      // ตรวจหาพิกัดระยะทางจริง (อิงตามข้อมูลสมัครสมาชิกถ้าล็อกอินแล้ว)
+      let distance = memberProfile.isLoggedIn ? memberProfile.distance : 3;
+      let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);
+      
       let deliveryDiscount = 0;
       let discountText = "";
 
@@ -288,7 +284,7 @@
       else if (subTotal >= 300) { deliveryDiscount = 10; discountText = " (ซื้อครบ 300.- ลดค่าส่ง 10.-)"; }
       else if (subTotal >= 150) { deliveryDiscount = 5; discountText = " (ซื้อครบ 150.- ลดค่าส่ง 5.-)"; }
 
-      if (isPromoApplied) { deliveryDiscount = baseDeliveryFee; discountText = " (โค้ดลดค่าส่งวันสำคัญ 100%)"; }
+      if (isPromoApplied) { deliveryDiscount = baseDeliveryFee; discountText = " (โค้ดส่วนลดจัดส่งวันสำคัญ)"; }
       if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;
 
       const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;
@@ -296,31 +292,21 @@
       const points = Math.floor(finalTotal / 10);
 
       document.getElementById('bill-details').innerHTML = `
-        <div style="display:flex; justify-content:space-between;"><span>ยอดรวมค่าผักสดในตะกร้า:</span><span>${subTotal} บาท</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งตามระยะทางจริง (${currentDistance} กม.):</span><span>${baseDeliveryFee} บาท</span></div>
-        ${deliveryDiscount > 0 ? `<div style="display:flex; justify-content:space-between; color:#16a34a;"><span>ส่วนลดค่าจัดส่งพิเศษ:</span><span>-${deliveryDiscount} บาท ${discountText}</span></div>` : ''}
-        <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมค่าบริการสุทธิ:</span><span>${finalTotal} บาท</span></div>
-        <div style="color:#d97706; font-size:11px; font-weight:700; margin-top:4px; text-align:right;">✨ แต้มสะสมออเดอร์นี้: +${points} แต้ม</div>
+        <div style="display:flex; justify-content:space-between;"><span>ค่าสินค้าในตะกร้ารวม:</span><span>${subTotal} บาท</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งตามระยะทาง (${distance} กม.):</span><span>${baseDeliveryFee} บาท</span></div>
+        ${deliveryDiscount > 0 ? `<div style="display:flex; justify-content:space-between; color:#16a34a;"><span>ส่วนลดค่าส่งพิเศษ:</span><span>-${deliveryDiscount} บาท ${discountText}</span></div>` : ''}
+        <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:13px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมชำระสุทธิปลายทาง:</span><span>${finalTotal} บาท</span></div>
+        <div style="color:#d97706; font-weight:700; margin-top:4px; text-align:right;">✨ แต้มสะสมออเดอร์นี้: +${points} แต้ม</div>
       `;
-      document.getElementById('submit-btn').innerText = `💥 ยืนยันพรีออเดอร์ผักสด ยอดรวม (${finalTotal} บาท)`;
+      document.getElementById('submit-btn').innerText = `💥 ส่งใบสั่งซื้อพรีออเดอร์ผักสด (${finalTotal} บาท)`;
     }
 
-    document.getElementById('order-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const phoneInput = document.getElementById('phone').value.trim();
-      const userTierInput = isLoggedIn ? 'vip' : 'guest';
-
-      // 🔍 ล็อกระดับฮาร์ดแวร์ความปลอดภัย: ดึงข้อมูลประวัติเพื่อเช็คว่าเบอร์โทรศัพท์นี้เคยเปิด VIP ไปแล้วหรือยัง
-      if (userTierInput === 'vip') {
-        const checkRes = await fetch(`/api/member/${phoneInput}`);
-        const checkData = await checkRes.json();
-        
-        // หากค้นพบว่าเบอร์นี้เคยสั่งในฐานะ VIP และมีประวัติในคลาวด์แล้ว แต่ปัจจุบันดันไม่ได้กดระบบจำลอง
-        if (checkData.points > 0 && !isLoggedIn) {
-          alert('❌ แจ้งเตือนความปลอดภัย: เบอร์โทรศัพท์นี้ถูกใช้ผูกบัญชีสมาชิก VIP ไปเรียบร้อยแล้วครับ กรุณากดปุ่ม "เข้าสู่ระบบ" ด้านบนเพื่อรักษาสิทธิ์สะสมคะแนนเดิมครับครับ');
-          return; // บล็อกตัดการทำงานทันที ไม่ให้ส่งออเดอร์ทับซ้อน
-        }
+    async function submitPreOrder() {
+      // หากยังไม่ได้สมัครสมาชิกหรือเข้าสู่ระบบ บังคับให้เปิดป๊อปอัพฟอร์มสมัครก่อน เพื่อความสะดวกและข้อมูลครบถ้วน
+      if (!memberProfile.isLoggedIn) {
+        alert('📝 เพื่อสิทธิ์ประโยชน์ส่วนลดและแต้มสะสม กรุณากรอกแบบฟอร์มข้อมูลติดต่อในหน้าถัดไปสักครู่ครับ');
+        openRegisterModal();
+        return;
       }
 
       const subTotal = Object.keys(cart).reduce((sum, cId) => {
@@ -328,7 +314,8 @@
         return sum + (p ? p.price_per_unit * cart[cId] : 0);
       }, 0);
       
-      let baseDeliveryFee = currentDistance <= 1.5 ? 0 : Math.max(10, currentDistance * 5);
+      let distance = memberProfile.distance;
+      let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);
       let deliveryDiscount = subTotal >= 1000 ? baseDeliveryFee : (subTotal >= 500 ? 15 : (subTotal >= 300 ? 10 : (subTotal >= 150 ? 5 : 0)));
       if (isPromoApplied) deliveryDiscount = baseDeliveryFee;
       if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;
@@ -337,15 +324,14 @@
       const finalTotal = subTotal + finalDeliveryFee;
       const points = Math.floor(finalTotal / 10);
 
-      // รวบรวมข้อมูลจัดส่งและข้อมูลการตลาดอัจฉริยะส่งเข้าตาราง Supabase
       const orderData = {
-        customer_name: document.getElementById('name').value,
-        phone: phoneInput,
-        delivery_address: `${document.getElementById('address').value} (ระยะ ${currentDistance} กม.) [เดือนเกิด: ${document.getElementById('birth-month').value}] [ขนาดบ้าน: ${document.getElementById('family-size').value}]`,
+        customer_name: memberProfile.name,
+        phone: memberProfile.phone,
+        delivery_address: `${memberProfile.address} (ระยะส่งทางแอป: ${distance} กม.) [ID LINE: ${memberProfile.lineId}]`,
         sub_district: 'เมืองหนองบัวลำภู',
         items: cart,
         total_price: finalTotal,
-        user_tier: userTierInput,
+        user_tier: 'vip', // บังคับสิทธิ์แต้มสะสม
         discount_amount: deliveryDiscount,
         earned_points: points
       };
@@ -357,12 +343,11 @@
       });
 
       if ((await res.json()).success) {
-        alert('✨ ส่งใบสั่งซื้อผักสำเร็จ! พรุ่งนี้ช่วงสายรถยนต์ของฟาร์มจะวิ่งเข้าไปส่งถึงหน้าบ้านครับ');
+        alert('✨ ส่งใบสั่งซื้อเข้าฟาร์มผักค้าบสำเร็จเรียบร้อยครับ! พรุ่งนี้สายๆ คนขับรถจะโทรแจ้งและวิ่งนำไปส่งมอบให้ถึงหน้าบ้านเลยครับ ขอบคุณครับ');
         cart = {}; isPromoApplied = false;
-        document.getElementById('order-form').reset();
         calculateBill();
       }
-    });
+    }
 
     fetchProducts();
   </script>
