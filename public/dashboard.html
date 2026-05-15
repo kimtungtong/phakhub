@@ -3,122 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ผักค้าบ ERP หลังบ้าน - ศูนย์บัญชาการฟาร์มดิจิทัล</title>
-  <script src="https://tailwindcss.com"></script>
-  <link rel="preconnect" href="https://googleapis.com">
-  <link rel="preconnect" href="https://gstatic.com" crossorigin>
-  <link href="https://googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>ผักค้าบ ERP - ศูนย์บัญชาการฟาร์มดิจิทัล</title>
+  <!-- ฝังรหัสดีไซน์ระดับ High-End ภายในไฟล์โดยตรง เพื่อบังคับให้สีสันสุดหรูแสดงผลบน Vercel แน่นอน 100% -->
   <style>
-    body { font-family: 'Anuphan', sans-serif; }
-    .glass-panel { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
-    .neon-pulse { animation: neon-glow 2s infinite; }
-    @keyframes neon-glow { 0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px #10b981); } 50% { opacity: 0.5; filter: drop-shadow(0 0 8px #10b981); } }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background-image: linear-gradient(135deg, #0f172a 0%, #020617 100%); color: #f8fafc; min-h-screen; padding: 24px 16px; }
+    .erp-wrapper { max-w: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    
+    /* ส่วนหัวแดชบอร์ดสไตล์หรูหราล้ำสมัย */
+    header { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
+    .header-title-zone { display: flex; flex-direction: column; gap: 4px; }
+    .live-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #34d399; background: rgba(16, 185, 129, 0.1); padding: 4px 10px; border-radius: 9999px; border: 1px solid rgba(16, 185, 129, 0.2); text-transform: uppercase; letter-spacing: 1px; width: fit-content; }
+    .live-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+    .main-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(to right, #ffffff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sub-title { font-size: 12px; color: #94a3b8; font-weight: 300; }
+    .btn-refresh { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; border: none; padding: 12px 20px; border-radius: 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+    .btn-refresh:hover { opacity: 0.95; transform: translateY(-1px); }
+
+    /* 📊 กล่องการ์ดสถิติรายได้เรืองแสงมิติเงา (Glow Metrics Grid) */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .metric-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+    .metric-title { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+    .metric-value { font-size: 28px; font-weight: 800; color: #34d399; margin-top: 6px; tracking-tight: -0.5px; }
+    .metric-value.amber { color: #fbbf24; }
+
+    /* แถบปุ่มแท็บสลับเมนูลื่นไหลล้ำสมัย */
+    .tab-bar { display: flex; gap: 8px; background: rgba(15, 23, 42, 0.8); padding: 6px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 12px; border-radius: 12px; border: none; cursor: pointer; color: #94a3b8; background: none; transition: all 0.2s; }
+    .tab-active { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); }
+
+    /* พื้นที่แสดงผลเนื้อหาเป็นระเบียบสมมาตร */
+    .content-panel { background: rgba(30, 41, 59, 0.2); border: 1px solid rgba(255, 255, 255, 0.05); padding: 24px; border-radius: 28px; min-h: 350px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; }
+    .panel-heading { font-size: 16px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .panel-tag { font-size: 10px; bg-color: rgba(255,255,255,0.06); color: #94a3b8; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+
+    /* ดีไซน์ฝั่งรายการออเดอร์ส่งของ (Grid 2 คอลัมน์เป็นระเบียบ) */
+    .orders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .order-card { background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.06); padding: 18px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
+    .order-card.delivered-style { border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.02); }
+    .card-row-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255,255,255,0.06); padding-bottom: 8px; font-size: 11px; font-weight: 700; color: #64748b; }
+    .card-body-info { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+    .customer-name { font-size: 15px; font-weight: 700; color: #ffffff; }
+    .veggie-basket { background: rgba(0, 0, 0, 0.2); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); margin-top: 6px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+    .card-row-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); pt: 10px; margin-top: 4px; }
+    .price-zone-text { font-size: 10px; color: #64748b; font-weight: 700; text-transform: uppercase; }
+    .price-zone-val { font-size: 16px; font-weight: 800; color: #34d399; }
+    .btn-status-toggle { border: 1px solid rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 10px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .btn-pending { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.2); }
+    .btn-delivered { background: rgba(16, 185, 129, 0.1); color: #34d399; border-color: rgba(16, 185, 129, 0.2); }
+
+    /* ดีไซน์ตารางสถิติและทะเบียนสมาชิก */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    th { padding: 12px; color: #94a3b8; font-weight: 700; border-bottom: 2px solid rgba(255,255,255,0.08); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+    td { padding: 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #e2e8f0; }
+    tr:hover td { background-color: rgba(255,255,255,0.01); }
+    .select-dropdown { bg-color: #1e293b; color: #f8fafc; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); outline: none; cursor: pointer; }
+    .badge-member { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
+    
+    .hidden { display: none !important; }
+    footer { text-align: center; font-size: 10px; color: #475569; margin-top: 24px; letter-spacing: 0.5px; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/20 min-h-screen p-4 md:p-6 text-slate-100 antialiased">
+<body>
 
-  <div class="max-w-5xl mx-auto flex flex-col gap-6">
-    
-    <!-- ส่วนหัวแดชบอร์ดสไตล์ Cyber Radiant หรูหราล้ำสมัย -->
-    <header class="relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 rounded-3xl p-6 shadow-2xl border border-slate-700/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-      <div class="absolute -right-6 -bottom-6 text-8xl opacity-5 pointer-events-none select-none">📈</div>
-      <div class="relative z-10">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block neon-pulse"></span>
-          <span class="text-[10px] bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-0.5 rounded-md border border-emerald-500/20 uppercase tracking-widest">Live System</span>
-        </div>
-        <h1 class="text-2xl font-black mt-2 tracking-wide bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">ผักค้าบ Pro — ข้อมูลบริหารฟาร์ม</h1>
-        <p class="text-xs text-slate-400 mt-1 font-light">ศูนย์บัญชาการดิจิทัลคุมระบบสถิติการเงิน ทะเบียนสมาชิก และลำดับยอดขายผักสดในหนองบัวลำภู</p>
+  <div class="erp-wrapper">
+    <!-- ส่วนหัวบาร์แอปไซเบอร์พรีเมียม -->
+    <header>
+      <div class="header-title-zone">
+        <div class="live-indicator"><span class="live-dot"></span>Live System</div>
+        <h1 class="main-title">ผักค้าบ Pro — ข้อมูลบริหารฟาร์ม</h1>
+        <p class="sub-title">ศูนย์บัญชาการดิจิทัลคุมระบบสถิติการเงิน ทะเบียนสมาชิก และลำดับยอดขายผักสดในหนองบัวลำภู</p>
       </div>
-      <button onclick="loadAllAdminData()" class="relative z-10 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold py-3 px-6 rounded-2xl text-xs shadow-lg shadow-emerald-600/20 transition transform active:scale-95 duration-200">
-        🔄 อัปเดตสถิติเรียลไทม์
-      </button>
+      <button type="button" onclick="loadAllAdminData()" class="btn-refresh">🔄 อัปเดตสถิติเรียลไทม์</button>
     </header>
 
-    <!-- 📊 ส่วนแสดงผลตัวเลขยอดขายเรืองแสงมิติเงา (Glow-Effect Metrics Grid) -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="bg-slate-900/60 backdrop-blur-md p-5 rounded-2xl border border-slate-800 shadow-xl shadow-emerald-500/[0.02]">
-        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">💰 ยอดขายประจำวันนี้</p>
-        <p id="sales-day" class="text-3xl font-black text-emerald-400 mt-1.5 tracking-tight">0 บาท</p>
+    <!-- 📊 กระดานการ์ดสรุปยอดเงินเรืองแสง -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <p class="metric-title">💰 ยอดขายประจำวันนี้</p>
+        <p id="sales-day" class="metric-value">0 บาท</p>
       </div>
-      <div class="bg-slate-900/60 backdrop-blur-md p-5 rounded-2xl border border-slate-800 shadow-xl shadow-emerald-500/[0.02]">
-        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">📅 ยอดขายประจำเดือนนี้</p>
-        <p id="sales-month" class="text-3xl font-black text-emerald-400 mt-1.5 tracking-tight">0 บาท</p>
+      <div class="metric-card">
+        <p class="metric-title">📅 ยอดขายประจำเดือนนี้</p>
+        <p id="sales-month" class="metric-value">0 บาท</p>
       </div>
-      <div class="bg-slate-900/60 backdrop-blur-md p-5 rounded-2xl border border-slate-800 shadow-xl shadow-emerald-500/[0.02]">
-        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">📊 ยอดขายสะสมรายปี (2026)</p>
-        <p id="sales-year" class="text-3xl font-black text-amber-400 mt-1.5 tracking-tight">0 บาท</p>
+      <div class="metric-card">
+        <p class="metric-title">📊 ยอดขายสะสมรายปี (2026)</p>
+        <p id="sales-year" class="metric-value amber">0 บาท</p>
       </div>
     </div>
 
-    <!-- 📲 แถบแท็บสลับสเปซหน้าต่างการทำงานลื่นไหล (Navigation Tabs) -->
-    <div class="flex gap-2 p-1.5 bg-slate-900/80 rounded-2xl border border-slate-800">
-      <button onclick="switchTab('orders')" id="tab-orders" class="flex-1 text-center text-xs font-bold py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-green-500 text-white shadow-md transition duration-200">📋 ออเดอร์จัดส่ง</button>
-      <button onclick="switchTab('analytics')" id="tab-analytics" class="flex-1 text-center text-xs font-bold py-3 rounded-xl text-slate-400 hover:text-white transition duration-200">📊 สถิติผักยอดฮิต</button>
-      <button onclick="switchTab('members')" id="tab-members" class="flex-1 text-center text-xs font-bold py-3 rounded-xl text-slate-400 hover:text-white transition duration-200">👥 ทะเบียนสมาชิก VIP</button>
+    <!-- 📲 แถบแท็บสลับหน้าต่างการทำงาน -->
+    <div class="tab-bar">
+      <button type="button" onclick="switchTab('orders')" id="tab-orders" class="tab-btn tab-active">📋 ออเดอร์จัดส่ง</button>
+      <button type="button" onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn">📊 สถิติผักยอดฮิต</button>
+      <button type="button" onclick="switchTab('members')" id="tab-members" class="tab-btn">👥 ทะเบียนสมาชิก VIP</button>
     </div>
 
-    <!-- 🌐 พื้นที่แสดงผลเนื้อหาแต่ละแท็บแบบคมชัดเต็มหน้าตา -->
-    <div class="bg-slate-900/40 backdrop-blur-md p-5 rounded-3xl border border-slate-800/80 shadow-2xl min-h-[400px]">
+    <!-- 🌐 โซนแผงเนื้อหาเป็นระเบียบหรูหรา -->
+    <div class="content-panel">
       
-      <!-- แท็บที่ 1: รายการพรีออเดอร์จัดส่ง -->
-      <div id="content-orders" class="space-y-4">
-        <div class="flex justify-between items-center mb-2">
-          <h2 class="font-black text-base text-white flex items-center gap-2">📦 ใบงานพรีออเดอร์จัดส่งหน้าบ้าน</h2>
-          <span class="text-[10px] bg-slate-800 text-slate-400 font-bold px-2.5 py-1 rounded-md">อัปเดตล่าสุดอัตโนมัติ</span>
+      <!-- แท็บที่ 1: รายการพรีออเดอร์คุมสถานะจัดส่ง -->
+      <div id="content-orders">
+        <div class="panel-header">
+          <h2 class="panel-heading">📋 ใบงานพรีออเดอร์จัดส่งหน้าบ้าน</h2>
+          <span class="panel-tag">จัดส่งรอบวันพรุ่งนี้</span>
         </div>
-        <div id="orders-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[550px] overflow-y-auto pr-1">
-          <!-- การ์ดออเดอร์จะถูกนำมาเรนเดอร์ตรงนี้ -->
+        <div id="orders-list" class="orders-grid">
+          <!-- การ์ดออเดอร์จะเรนเดอร์ตรงนี้ -->
         </div>
       </div>
 
-      <!-- แท็บที่ 2: อันดับผักยอดนิยมประจำฟาร์ม -->
-      <div id="content-analytics" class="hidden space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-2">
-          <h2 class="font-black text-base text-white flex items-center gap-2">🔥 ลำดับสินค้าผักสดที่นิยมสูงสุด</h2>
-          <select id="time-filter" onchange="renderVeggieRank()" class="text-xs font-bold p-2 bg-slate-800 text-slate-200 border border-slate-700 rounded-xl outline-none cursor-pointer focus:border-emerald-500">
+      <!-- แท็บที่ 2: อันดับสถิติผักยอดฮิต -->
+      <div id="content-analytics" class="hidden">
+        <div class="panel-header">
+          <h2 class="panel-heading">🔥 ลำดับสินค้าผักสดที่นิยมสูงสุด</h2>
+          <select id="time-filter" onchange="renderVeggieRank()" class="select-dropdown">
             <option value="week">📊 สถิติรอบสัปดาห์นี้</option>
             <option value="month">📅 สถิติรอบเดือนนี้</option>
             <option value="year">📈 สถิติรอบปีนี้</option>
           </select>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr class="text-slate-400 font-bold border-b border-slate-800">
-                <th class="p-3">อันดับ</th>
-                <th class="p-3">รายการชื่อผักสด</th>
-                <th class="p-3 text-right">ปริมาณออเดอร์ที่ถูกสั่ง</th>
-              </tr>
-            </thead>
-            <tbody id="veggie-table-body"></tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 70px;">อันดับ</th>
+              <th>รายการชื่อผักสด</th>
+              <th style="text-align: right;">ปริมาณออเดอร์ที่ถูกสั่ง</th>
+            </tr>
+          </thead>
+          <tbody id="veggie-table-body"></tbody>
+        </table>
       </div>
 
-      <!-- แท็บที่ 3: ทะเบียนข้อมูลแต้มสมาชิก VIP -->
-      <div id="content-members" class="hidden space-y-4">
-        <h2 class="font-black text-base text-white border-b border-slate-800 pb-3 mb-2">👥 ทะเบียนแต้มสะสมและสิทธิ์ประโยชน์สมาชิก</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr class="text-slate-400 font-bold border-b border-slate-800">
-                <th class="p-3">ชื่อลูกค้าสมาชิกรวม</th>
-                <th class="p-3">เบอร์โทรศัพท์ติดต่อ</th>
-                <th class="p-3 text-center">ระดับสถานะคลาวด์</th>
-                <th class="p-3 text-center">คะแนนรวมสุทธิ</th>
-              </tr>
-            </thead>
-            <tbody id="member-table-body"></tbody>
-          </table>
+      <!-- แท็บที่ 3: ทะเบียนสมาชิกแต้มสะสม -->
+      <div id="content-members" class="hidden">
+        <div class="panel-header">
+          <h2 class="panel-heading">👥 ทะเบียนแต้มสะสมและสิทธิ์ประโยชน์สมาชิก</h2>
+          <span class="panel-tag">คลาวด์ข้อมูลรวม</span>
         </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ชื่อลูกค้าสมาชิก</th>
+              <th>เบอร์โทรศัพท์</th>
+              <th style="text-align: center;">ระดับสถานะ</th>
+              <th style="text-align: center;">คะแนนรวมสุทธิ</th>
+            </tr>
+          </thead>
+          <tbody id="member-table-body"></tbody>
+        </table>
       </div>
 
     </div>
 
-    <!-- ข้อมูลส่วนท้ายสไตล์ดาร์กไซเบอร์ -->
-    <footer class="text-center text-[10px] text-slate-500 pt-2 tracking-wide font-light">
-      ฟาร์มผักค้าบ หนองบัวลำภู (PhakKhab Pro ERP Console) • © 2026 Powered by Excellence Technology.
+    <footer>
+      ฟาร์มผักค้าบ หนองบัวลำภู (PhakKhab Pro ERP Console) • © 2026 Crafted with excellence.
     </footer>
   </div>
 
@@ -131,10 +172,10 @@
         const btn = document.getElementById(`tab-${t}`);
         const content = document.getElementById(`content-${t}`);
         if (t === tabName) {
-          btn.className = "flex-1 text-center text-xs font-bold py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-green-500 text-white shadow-md transition duration-200";
+          btn.classList.add('tab-active');
           content.classList.remove('hidden');
         } else {
-          btn.className = "flex-1 text-center text-xs font-bold py-3 rounded-xl text-slate-400 hover:text-white transition duration-200";
+          btn.classList.remove('tab-active');
           content.classList.add('hidden');
         }
       });
@@ -162,7 +203,7 @@
 
     async function updateStatus(orderId, currentStatus) {
       const nextStatus = currentStatus === 'pending' ? 'delivered' : 'pending';
-      if (!confirm(nextStatus === 'delivered' ? 'ยืนยันว่าส่งผักถึงหน้าบ้านลูกค้าเรียบร้อยแล้วใช่ไหมครับ?' : 'ต้องการแก้สถานะกลับ?')) return;
+      if (!confirm(nextStatus === 'delivered' ? 'ยืนยันว่าส่งผักถึงหน้าบ้านลูกค้าเรียบร้อยแล้วใช่ไหมครับ?' : 'ต้องการเปลี่ยนสถานะกลับ?')) return;
 
       const res = await fetch(`/api/admin/orders/${orderId}`, {
         method: 'PUT',
@@ -175,7 +216,7 @@
     function renderOrders(orders) {
       const container = document.getElementById('orders-list');
       if (orders.length === 0) {
-        container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-500 p-8 bg-slate-900/50 rounded-2xl border border-slate-800">ยังไม่มีใบงานคำสั่งซื้อเข้ามาในระบบประจำวัน</div>`;
+        container.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color:#64748b; padding:40px; font-size:13px;">ยังไม่มีใบงานออเดอร์เข้ามาในรอบวันปัจจุบัน</p>`;
         return;
       }
       container.innerHTML = orders.map(order => {
@@ -188,27 +229,27 @@
         const date = new Date(order.created_at).toLocaleString('th-TH');
 
         return `
-          <div class="bg-slate-900/80 border ${isDel ? 'border-emerald-500/30 bg-emerald-950/5':'border-slate-800'} p-4 rounded-2xl space-y-3 shadow-md flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
-                <span class="font-bold text-slate-500 text-[11px]">📋 ออเดอร์ #${order.id}</span>
-                <span class="text-[10px] text-slate-500">${date}</span>
+          <div class="order-card ${isDel ? 'delivered-style':''}">
+            <div class="card-body-info">
+              <div class="card-row-top">
+                <span>📦 ออเดอร์ #${order.id}</span>
+                <span>${date}</span>
               </div>
-              <h3 class="font-bold text-white text-base">👤 คุณ: ${order.customer_name}</h3>
-              <p class="font-medium text-slate-400">📞 โทร: <a href="tel:${order.phone}" class="text-emerald-400 underline">${order.phone}</a></p>
-              <p class="text-slate-400 leading-relaxed">📍 ที่อยู่: ${order.delivery_address}</p>
-              <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed mt-2 text-xs">
-                <p class="font-bold text-emerald-400 mb-1">🥬 รายการผักคัดเกรด:</p>
+              <p class="customer-name" style="margin-top:6px;">คุณ: ${order.customer_name}</p>
+              <p style="color:#10b981; font-weight:600; margin-top:2px;">📞 โทร: <a href="tel:${order.phone}" style="color:inherit;">${order.phone}</a></p>
+              <p style="color:#94a3b8; font-size:12px; margin-top:2px;">📍 พิกัด: ${order.delivery_address}</p>
+              <div class="veggie-basket">
+                <p style="font-weight:700; color:#34d399; margin-bottom:4px;">🥬 รายการผักที่สั่ง:</p>
                 ${itemsDetail}
               </div>
             </div>
-            <div class="flex justify-between items-center border-t border-slate-800/80 pt-2 mt-2">
+            <div class="card-row-bottom">
               <div>
-                <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">เก็บปลายทาง</p>
-                <p class="font-black text-base text-emerald-400">${order.total_price} บาท</p>
+                <p class="price-zone-text">ยอดเก็บเงินปลายทาง</p>
+                <p class="price-zone-val">${order.total_price} บาท</p>
               </div>
-              <button onclick="updateStatus(${order.id}, '${order.status}')" class="py-2 px-4 rounded-xl font-bold text-[11px] transition shadow-md ${isDel ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20':'bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20'}">
-                ${isDel ? '✅ จัดส่งสำเร็จแล้ว':'⏳ รอจัดส่งล้อหมุน'}
+              <button type="button" onclick="updateStatus(${order.id}, '${order.status}')" class="btn-status-toggle ${isDel ? 'btn-delivered':'btn-pending'}">
+                ${isDel ? '✅ ส่งสำเร็จแล้ว':'⏳ รอจัดส่งล้อหมุน'}
               </button>
             </div>
           </div>
@@ -227,14 +268,14 @@
       }).sort((a, b) => b.qty - a.qty);
 
       if (sorted.length === 0) {
-        container.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748b; padding:30px;">รอบเวลานี้ยังไม่พบข้อมูลสถิติตัวเลขซื้อขาย</td></tr>`;
+        container.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748b; padding:24px;">ไม่พบประวัติข้อมูลซื้อขายผักในรอบเวลานี้</td></tr>`;
         return;
       }
       container.innerHTML = sorted.map((item, idx) => `
-        <tr class="border-b border-slate-800/40 hover:bg-slate-900/30 transition">
-          <td class="p-3 font-bold text-slate-500">#${idx + 1}</td>
-          <td class="p-3 font-bold text-slate-200">${item.name}</td>
-          <td class="p-3 text-right font-black text-emerald-400 text-sm">${item.qty} รายการ</td>
+        <tr>
+          <td style="font-weight:800; color:#64748b; padding-left:16px;">#${idx + 1}</td>
+          <td style="font-weight:700; color:#f1f5f9;">${item.name}</td>
+          <td style="text-align:right; font-weight:800; color:#34d399; font-size:14px; padding-right:16px;">${item.qty} รายการ</td>
         </tr>
       `).join('');
     }
@@ -242,15 +283,15 @@
     function renderMembers(members) {
       const container = document.getElementById('member-table-body');
       if (members.length === 0) {
-        container.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748b; padding:30px;">ฐานข้อมูลคลาวด์ยังไม่มีประวัติสมาชิกลงทะเบียน</td></tr>`;
+        container.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748b; padding:24px;">ฐานข้อมูลยังไม่มีรายชื่อสมาชิกลงทะเบียน</td></tr>`;
         return;
       }
       container.innerHTML = members.map(m => `
-        <tr class="border-b border-slate-800/40 hover:bg-slate-900/30 transition">
-          <td class="p-3 font-bold text-slate-200">${m.name}</td>
-          <td class="p-3 font-medium text-slate-400 font-mono">${m.phone}</td>
-          <td class="p-3 text-center"><span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold px-2 py-0.5 rounded text-[10px]">VIP GOLD</span></td>
-          <td class="p-3 text-center font-black text-amber-500 text-sm">👑 ${m.points} แต้ม</td>
+        <tr>
+          <td style="font-weight:700; color:#f1f5f9;">${m.name}</td>
+          <td style="font-family:monospace; color:#94a3b8; font-weight:600;">${m.phone}</td>
+          <td style="text-align:center;"><span class="badge-member">VIP GOLD</span></td>
+          <td style="text-align:center; font-weight:800; color:#fbbf24; font-size:14px;">👑 ${m.points} แต้ม</td>
         </tr>
       `).join('');
     }
