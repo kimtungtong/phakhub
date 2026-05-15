@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
   <style>
-    /* รักษาโครงสร้างสไตล์หลักเดิมไว้ทั้งหมด 100% ตามที่คุณชอบ */
+    /* โครงสร้างหลักพรีเมียมหรูหราและสบายตาตามรูปแบบเดิมที่คุณพึงพอใจ */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
     .app-container { max-w: 480px; margin: 0 auto; padding: 16px; background-color: #ffffff; min-h-screen; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
@@ -18,7 +18,7 @@
     .btn-text { color: #64748b; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; }
     .btn-solid { background-color: #0f172a; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; }
 
-    /* 🎨 อัปเกรดแบนเนอร์หลัก: ฝังรูปภาพเวกเตอร์ใบไม้และฟาร์มเกษตรสีเขียวพรีเมียม สวยงาม มีมิติแสงเงา และมีลวดลายสมบูรณ์ */
+    /* แบนเนอร์สีเขียวมีเงาและรูปภาพเวกเตอร์ธรรมชาติระดับหรูหรา */
     .premium-banner { 
       background-color: #047857; 
       color: #ffffff; 
@@ -28,43 +28,20 @@
       margin-bottom: 24px; 
       position: relative; 
       overflow: hidden;
-      /* รูปภาพเวกเตอร์กราฟิกฟาร์มและธรรมชาติระดับ High-End */
       background-image: 
         radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.4) 0%, transparent 60%),
         linear-gradient(135deg, #047857 0%, #065f46 100%);
     }
-    /* สร้างรูปทรงใบไม้เวกเตอร์พริ้วไหวประดับแบนเนอร์ด้านหลังตัวหนังสือ */
     .premium-banner::before {
-      content: "";
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      width: 140px;
-      height: 140px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 90% 10% 90% 10%;
-      transform: rotate(-15deg);
-      pointer-events: none;
-    }
-    .premium-banner::after {
-      content: "";
-      position: absolute;
-      top: -30px;
-      right: 40px;
-      width: 90px;
-      height: 90px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 50% 50% 0 50%;
-      transform: rotate(45deg);
-      pointer-events: none;
+      content: ""; position: absolute; bottom: -20px; right: -20px; width: 140px; height: 140px;
+      background: rgba(255, 255, 255, 0.08); border-radius: 90% 10% 90% 10%; transform: rotate(-15deg); pointer-events: none;
     }
     
     .banner-tag { background-color: rgba(255,255,255,0.22); color: #ffffff; font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.15); }
     .banner-heading { font-size: 24px; font-weight: 800; margin-top: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
     .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 8px; font-weight: 300; line-height: 1.6; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
-    /* รักษาสไตล์แท็บคัดกรองผักและกล่องข้อมูลทั้งหมดไว้ตามเดิม */
     .filter-bar { display: flex; gap: 8px; background-color: #f1f5f9; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
     .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: #64748b; background: none; transition: 0.2s; }
     .tab-active { background-color: #ffffff; color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -76,9 +53,22 @@
     .products-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .product-item { background-color: #ffffff; padding: 12px; border-radius: 14px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.01); }
     .item-meta { display: flex; align-items: center; gap: 12px; }
-    .item-pic { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .meta-green { background-color: #e0f2fe; border: 1px solid #bae6fd; }
-    .meta-amber { background-color: #fef3c7; border: 1px solid #fde68a; }
+    
+    /* โซนรูปภาพเวกเตอร์ผักสดแบบพรีเมียม คมชัด สีสวยสะดุดตา */
+    .item-pic { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); }
+    .meta-green-oak { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
+    .meta-red-oak { background-color: #fdf2f8; border: 1px solid #fbcfe8; }
+    .meta-cos { background-color: #ecfdf5; border: 1px solid #a7f3d0; }
+    .meta-butter { background-color: #f0fdf4; border: 1px solid #c6f6d5; }
+    .meta-chili { background-color: #fff5f5; border: 1px solid #fed7d7; }
+    .meta-onion { background-color: #f0fdfa; border: 1px solid #ccfbf1; }
+    .meta-holy { background-color: #f4fbf7; border: 1px solid #d1fae5; }
+    .meta-lemon { background-color: #fefce8; border: 1px solid #fef08a; }
+    .meta-cucumber { background-color: #ecfdf5; border: 1px solid #bbf7d0; }
+    .meta-tomato { background-color: #fff5f5; border: 1px solid #ffccd5; }
+    .meta-cabbage { background-color: #f9fafb; border: 1px solid #e5e7eb; }
+    .meta-mushroom { background-color: #fcf8f2; border: 1px solid #eddcc6; }
+
     .title-row { display: flex; align-items: center; gap: 6px; }
     .item-title { font-size: 14px; font-weight: 700; color: #0f172a; }
     .tag-category { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 4px; }
@@ -119,7 +109,6 @@
       </div>
     </nav>
 
-    <!-- บอร์ดแบนเนอร์เวกเตอร์รูปทรงธรรมชาติและฟาร์มสีเขียวระดับหรูหรามีมิติเงา -->
     <header class="premium-banner">
       <span class="banner-tag">Premium Delivery</span>
       <h1 class="banner-heading">ผักสดจากแปลง วันต่อวัน</h1>
@@ -145,7 +134,7 @@
       <form id="order-form">
         <input type="text" id="name" required class="input-box" placeholder="ชื่อ - นามสกุล ของคุณ">
         <input type="tel" id="phone" required class="input-box" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
-        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="..."></textarea>
+        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
         <button type="submit" id="submit-btn" class="btn-order-submit">ยืนยันการทำรายการสั่งซื้อ</button>
       </form>
     </div>
@@ -172,11 +161,28 @@
     let isLoggedIn = false;
     let selectedCat = 'all';
 
+    /* ระบบจับคู่รูปภาพเวกเตอร์ไอคอนผักสดที่มีลวดลายและสีสันสมบูรณ์แบบครบทั้ง 20 ชนิด */
     const itemConfig = {
-      1: { icon: '🥬', bg: 'meta-green' },
-      2: { icon: '🥗', bg: 'meta-green' },
-      3: { icon: '🌶️', bg: 'meta-amber' },
-      4: { icon: '🌱', bg: 'meta-amber' }
+      1: { icon: '🥬', bg: 'meta-green-oak' },
+      2: { icon: '🥗', bg: 'meta-red-oak' },
+      3: { icon: '🥦', bg: 'meta-cos' },
+      4: { icon: '🍃', bg: 'meta-butter' },
+      5: { icon: '🌱', bg: 'meta-cos' },
+      6: { icon: '🪴', bg: 'meta-green-oak' },
+      7: { icon: '🌶️', bg: 'meta-chili' },
+      8: { icon: '🌶️', bg: 'meta-chili' },
+      9: { icon: '🧅', bg: 'meta-onion' },
+      10: { icon: '🌿', bg: 'meta-holy' },
+      11: { icon: '🌿', bg: 'meta-holy' },
+      12: { icon: '🍋', bg: 'meta-lemon' },
+      13: { icon: '🥒', bg: 'meta-cucumber' },
+      14: { icon: '🥣', bg: 'meta-lemon' },
+      15: { icon: '🍅', bg: 'meta-tomato' },
+      16: { icon: '🥬', bg: 'meta-cabbage' },
+      17: { icon: '🥦', bg: 'meta-cabbage' },
+      18: { icon: '🌱', bg: 'meta-cucumber' },
+      19: { icon: '🥬', bg: 'meta-cos' },
+      20: { icon: '🍄', bg: 'meta-mushroom' }
     };
 
     function toggleAuth(status) {
@@ -223,7 +229,7 @@
       }
 
       container.innerHTML = filtered.map(p => {
-        const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green' };
+        const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green-oak' };
         const isHydro = p.category === 'hydro';
         return `
           <div class="product-item">
