@@ -4,34 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ - พรีออเดอร์ผักสดหนองบัวลำภู</title>
-  <script src="https://tailwindcss.com"></script>
+  <!-- เรียกใช้งานเครื่องมือดีไซน์อย่างถูกต้องผ่าน Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- เชื่อมต่อฟอนต์ Google Fonts ที่ทันสมัยและอ่านง่ายสำหรับคนทุกวัย -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Anuphan', sans-serif; }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen pb-24">
-  <main class="max-w-md mx-auto p-4">
-    <!-- ส่วนหัวแอป -->
-    <header class="bg-green-600 p-5 rounded-2xl text-white mb-6 shadow-md text-center">
-      <h1 class="text-2xl font-bold">🌾 ผักค้าบ (PhakKhab)</h1>
-      <p class="text-xs opacity-90 mt-1">ผักไฮโดรฯ และผักสวนครัว ตัดสดส่งตรงจากฟาร์มถึงบ้านคุณ</p>
+<body class="bg-gradient-to-br from-stone-50 via-neutral-50 to-emerald-50/30 min-h-screen text-slate-800 antialiased pb-24">
+
+  <!-- แถบเมนูด้านบนระดับพรีเมียม (Premium Navigation Bar) -->
+  <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 shadow-sm transition-all">
+    <div class="max-w-md mx-auto px-4 h-16 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🌾</span>
+        <span class="font-black text-xl tracking-tight bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">ผักค้าบ</span>
+        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider">Pro</span>
+      </div>
+      
+      <!-- ระบบจัดการสลับสถานะสมาชิกและการล็อกอินเข้าสู่ระบบ -->
+      <div id="auth-zone" class="flex items-center gap-2 text-sm">
+        <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
+        <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition text-xs">สมัครสมาชิก</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-md mx-auto px-4 mt-6">
+    <!-- แบนเนอร์หัวข้อแอปพลิเคชันต้อนรับผู้ใช้งาน -->
+    <header class="relative overflow-hidden bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-3xl p-6 shadow-xl shadow-emerald-900/10 mb-8">
+      <div class="absolute -right-10 -bottom-10 text-8xl opacity-10 pointer-events-none select-none">🌿</div>
+      <div class="relative z-10">
+        <span class="bg-white/20 backdrop-blur-sm text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest text-emerald-100">Premium Delivery</span>
+        <h1 class="text-2xl font-black mt-2 tracking-wide">ผักสดจากแปลง วันต่อวัน</h1>
+        <p class="text-xs opacity-90 mt-1.5 font-light leading-relaxed">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
+      </div>
     </header>
 
-    <!-- ส่วนแสดงรายการผัก -->
-    <section class="mb-6">
-      <h2 class="font-bold text-gray-800 mb-3 text-lg">🥬 รายการผักสดรอบส่งวันพรุ่งนี้</h2>
-      <div id="product-list" class="grid grid-cols-1 gap-3">
-        <!-- ข้อมูลผักจะถูกดึงมาแสดงตรงนี้อัตโนมัติ -->
+    <!-- ส่วนแสดงรายการสินค้าแบบการ์ดสมัยใหม่ -->
+    <section class="mb-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+          <span>🥬</span> รายการผักสดรอบส่งวันพรุ่งนี้
+        </h2>
+        <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-2.5 py-1 rounded-full border border-emerald-100">พร้อมส่งวันนี้</span>
+      </div>
+      <div id="product-list" class="grid grid-cols-1 gap-3.5">
+        <!-- ข้อมูลรายการผักจากฐานข้อมูล Supabase จะมาเรนเดอร์ตรงนี้ -->
       </div>
     </section>
 
-    <!-- ส่วนฟอร์มสั่งซื้อและตะกร้าสินค้า -->
-    <div id="cart-section" class="hidden">
-      <form id="order-form" class="bg-white p-4 rounded-xl shadow-md border border-green-100">
-        <h2 class="font-bold text-gray-800 mb-3 text-md border-b pb-2">📍 ข้อมูลจัดส่งในพื้นที่หนองบัวลำภู</h2>
-        <div class="flex flex-col gap-2 text-sm text-gray-700">
-          <input type="text" id="name" placeholder="ชื่อของคุณ" required class="border p-2 rounded-lg">
-          <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์" required class="border p-2 rounded-lg">
-          <textarea id="address" placeholder="บ้านเลขที่ / หมู่บ้าน / พิกัดจุดสังเกต" required class="border p-2 rounded-lg h-20"></textarea>
-          <button type="submit" id="submit-btn" class="bg-green-600 text-white font-bold py-3 rounded-lg mt-2 shadow hover:bg-green-700 transition">
-            ยืนยันการสั่งซื้อ
+    <!-- ส่วนสรุปออเดอร์และการกรอกข้อมูลพรีออเดอร์ -->
+    <div id="cart-section" class="hidden transform translate-y-4 opacity-0 transition-all duration-500">
+      <form id="order-form" class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/80 border border-slate-100 space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+          <h2 class="font-bold text-slate-900 text-md flex items-center gap-2">
+            <span>📍</span> ข้อมูลและพิกัดจัดส่งหน้าบ้าน
+          </h2>
+          <span class="text-[11px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded">หนองบัวลำภู</span>
+        </div>
+        
+        <div class="space-y-3 text-sm">
+          <div class="relative">
+            <input type="text" id="name" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10" placeholder="ชื่อ นามสกุล ของคุณ">
+            <span class="absolute left-3.5 top-3.5 opacity-40">👤</span>
+          </div>
+          <div class="relative">
+            <input type="tel" id="phone" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
+            <span class="absolute left-3.5 top-3.5 opacity-40">📞</span>
+          </div>
+          <div class="relative">
+            <textarea id="address" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10 h-24 resize-none" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / พิกัดจุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
+            <span class="absolute left-3.5 top-4 opacity-40">🏠</span>
+          </div>
+          
+          <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-emerald-600 to-green-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-600/20 hover:opacity-95 active:scale-[0.99] transition duration-200 text-base mt-2 flex justify-center items-center gap-2">
+            ยืนยันการสั่งซื้อพรีออเดอร์
           </button>
         </div>
       </form>
@@ -41,8 +92,28 @@
   <script>
     let products = [];
     let cart = {};
+    let isLoggedIn = false;
 
-    // ดึงข้อมูลผักจาก Node.js API เมื่อเปิดแอป
+    // ระบบจําลองสมัครสมาชิก/ล็อกอิน เพื่อความหรูหรามืออาชีพ
+    function toggleAuth(status) {
+      isLoggedIn = status;
+      const authZone = document.getElementById('auth-zone');
+      if (isLoggedIn) {
+        authZone.innerHTML = `
+          <div class="flex items-center gap-3 bg-slate-50 p-1 pr-3 rounded-full border border-slate-100">
+            <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">K</div>
+            <span class="font-medium text-slate-700 text-xs hidden sm:inline">คุณเกษตรกร</span>
+            <button onclick="toggleAuth(false)" class="text-red-500 hover:text-red-600 text-xs font-semibold ml-1">ออกระบบ</button>
+          </div>
+        `;
+      } else {
+        authZone.innerHTML = `
+          <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
+          <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition text-xs">สมัครสมาชิก</button>
+        `;
+      }
+    }
+
     async function fetchProducts() {
       const res = await fetch('/api/products');
       products = await res.json();
@@ -51,19 +122,33 @@
 
     function renderProducts() {
       const container = document.getElementById('product-list');
-      container.innerHTML = products.map(p => `
-        <div class="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center border border-gray-100">
-          <div>
-            <h3 class="font-semibold text-gray-900">${p.name}</h3>
-            <p class="text-sm text-green-600 font-bold">${p.price_per_unit} บาท / ${p.unit_name}</p>
+      container.innerHTML = products.map(p => {
+        // แยกลูกเล่นป้ายแท็กไอคอนตามประเภทประเภทสินค้า
+        const isHydro = p.category === 'hydro';
+        const badge = isHydro 
+          ? `<span class="text-[10px] bg-blue-50 text-blue-700 font-medium px-2 py-0.5 rounded-md border border-blue-100">💧 ไฮโดรโปนิกส์</span>`
+          : `<span class="text-[10px] bg-amber-50 text-amber-700 font-medium px-2 py-0.5 rounded-md border border-amber-100">🏡 ผักสวนครัว</span>`;
+        
+        return `
+          <div class="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md border border-slate-100 flex justify-between items-center transition duration-300">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <h3 class="font-bold text-slate-900 text-base tracking-wide">${p.name}</h3>
+                ${badge}
+              </div>
+              <p class="text-sm text-emerald-600 font-bold flex items-baseline gap-0.5">
+                <span class="text-lg">${p.price_per_unit}</span> 
+                <span class="text-xs text-slate-400 font-light">บาท / ${p.unit_name}</span>
+              </p>
+            </div>
+            <div class="flex items-center gap-3.5 bg-slate-50 border border-slate-100 rounded-xl p-1.5 shadow-inner">
+              <button type="button" onclick="updateCart(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition">-</button>
+              <span class="font-black text-slate-800 w-5 text-center text-sm">${cart[p.id] || 0}</span>
+              <button type="button" onclick="updateCart(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-emerald-600 text-white shadow-sm flex items-center justify-center font-bold hover:bg-emerald-700 active:scale-95 transition">+</button>
+            </div>
           </div>
-          <div class="flex items-center gap-3 bg-gray-100 rounded-lg p-1">
-            <button onclick="updateCart(${p.id}, -1)" class="px-2 py-1 font-bold text-gray-600">-</button>
-            <span class="font-bold text-gray-800 w-4 text-center">${cart[p.id] || 0}</span>
-            <button onclick="updateCart(${p.id}, 1)" class="px-2 py-1 font-bold text-green-600">+</button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function updateCart(id, qty) {
@@ -79,9 +164,13 @@
       const cartSection = document.getElementById('cart-section');
       if (total > 0) {
         cartSection.classList.remove('hidden');
-        document.getElementById('submit-btn').innerText = `💥 สั่งซื้อพรีออเดอร์ผักสด (${total} บาท)`;
+        setTimeout(() => {
+          cartSection.classList.remove('translate-y-4', 'opacity-0');
+        }, 10);
+        document.getElementById('submit-btn').innerHTML = `💥 ส่งใบสั่งซื้อพรีออเดอร์ผักสด (<span class="underline underline-offset-4 px-1">${total} บาท</span>)`;
       } else {
-        cartSection.classList.add('hidden');
+        cartSection.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => cartSection.classList.add('hidden'), 300);
       }
     }
 
@@ -109,7 +198,7 @@
 
       const result = await res.json();
       if (result.success) {
-        alert('สั่งผักค้าบสำเร็จ! พรุ่งนี้ช่วงสายรถขนส่งของฟาร์มจะวิ่งเข้าไปส่งถึงหน้าบ้านครับ');
+        alert('✨ สั่งผักค้าบสำเร็จ! ขอบคุณที่สนับสนุนผลผลิตชุมชนครับ พรุ่งนี้สายๆ รถจะวิ่งไปส่งถึงหน้าบ้านครับ');
         cart = {};
         document.getElementById('order-form').reset();
         updateCart(0, 0);
