@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
-  <!-- ฝังรหัสดีไซน์ระดับพรีเมียมภายในไฟล์โดยตรง บังคับให้ความสวยหรูหราโชว์ผลบน Vercel แน่นอน 100% ไม่แตกเป็นสีดำ -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
@@ -116,21 +115,18 @@
       <div id="product-list" class="products-grid"></div>
     </section>
 
-    <!-- ตะกร้าสรุปยอดเงินและฟอร์มจัดส่งพรีออเดอร์ (เพิ่มปุ่มสลับแก้ไขพิกัดยืดหยุ่นได้) -->
+    <!-- ตะกร้าสรุปยอดเงินและฟอร์มจัดส่งพรีออเดอร์ ยืดหยุ่นแก้พิกัดได้ -->
     <div id="cart-section" class="form-card">
       <div class="form-title">
         <h2 style="font-size:14px; color:#0f172a;">🛒 ตะกร้าและพิกัดส่งผักของคุณ</h2>
-        <!-- ปุ่มพิเศษเปิดทางให้สมาชิกกดสลับแก้ไขข้อมูลปลายทางใหม่แยกตามออเดอร์ -->
         <button type="button" id="btn-edit-delivery" onclick="enableDeliveryEdit()" style="display:none; color:#059669; font-weight:700; background:none; border:none; font-size:11px; cursor:pointer; text-decoration:underline;">✏️ แก้ไขพิกัดรอบนี้</button>
       </div>
       <form id="order-form" style="display:flex; flex-direction:column; gap:4px;">
         
-        <!-- โซนช่องกรอกข้อมูลพิกัด (จะดึงข้อมูลสมาชิกมาใส่อัตโนมัติ แต่เปิดให้แก้ไขได้อิสระ) -->
         <div id="delivery-inputs-zone" style="margin-top:6px; display:flex; flex-direction:column; gap:4px;">
           <input type="text" id="order-name" required class="input-box" style="margin-bottom:0;" placeholder="ชื่อ - นามสกุล ผู้รับของ">
           <textarea id="order-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="ระบุ บ้านเลขที่/สถานที่จัดส่งรอบนี้ (เช่น บ้านพัก หรือที่ทำงาน)"></textarea>
           
-          <!-- แถบปรับระยะทางจัดส่งสไตล์แกร็ปประจำออเดอร์ คํานวณค่าน้ำมันอัตโนมัติ -->
           <div style="background-color:#f8fafc; border:1px solid #e2e8f0; padding:10px; border-radius:12px; margin-top:4px; margin-bottom:6px;">
             <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
               <span>📍 ระยะทางจัดส่งของออเดอร์นี้:</span>
@@ -208,7 +204,6 @@
     let selectedCat = 'all';
     let isPromoApplied = false;
     
-    // พิกัดจัดส่งประจำออเดอร์ปัจจุบัน (ยืดหยุ่นให้สมาชิกแก้ไขสลับสถานที่สั่งซื้อได้อิสระ)
     let currentOrderConfig = { name: '', address: '', distance: 3 };
     let memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
 
@@ -239,8 +234,6 @@
       const dist = Number(document.getElementById('reg-distance').value);
 
       memberProfile = { isLoggedIn: true, name: name, phone: phone, lineId: line, address: addr, distance: dist, points: 0 };
-      
-      // ดึงข้อมูลโปรไฟล์หลักมาตั้งเป็นค่าเริ่มต้นของออเดอร์นี้ทันที
       currentOrderConfig = { name: name, address: addr, distance: dist };
       syncOrderFormUI();
 
@@ -257,7 +250,6 @@
       const data = await res.json();
 
       memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: 'กรุณาระบุที่อยู่จัดส่งพิกัดรอบนี้', distance: 3, points: data.points };
-      
       currentOrderConfig = { name: 'คุณสมาชิก VIP', address: '', distance: 3 };
       syncOrderFormUI();
 
@@ -275,7 +267,6 @@
       if (Object.keys(cart).length > 0) calculateBill();
     }
 
-    // ฟังก์ชันซิงค์ข้อมูลโปรไฟล์ลงหน้ากากฟอร์มออเดอร์จัดส่ง
     function syncOrderFormUI() {
       document.getElementById('order-name').value = currentOrderConfig.name;
       document.getElementById('order-address').value = currentOrderConfig.address;
@@ -283,9 +274,8 @@
       document.getElementById('order-distance-text').innerText = currentOrderConfig.distance + " กม.";
     }
 
-    // ฟังก์ชันเปิดสิทธิ์ให้สมาชิกกดแก้ไขพิกัดจัดส่งสลับสถานที่ได้อิสระประจำออเดอร์
     function enableDeliveryEdit() {
-      alert('✏️ ระบบเปิดช่องทางให้คุณแก้ไขที่อยู่และสไลด์ปรับระยะทางจัดส่งใหม่สำหรับออเดอร์รอบนี้เรียบร้อยครับครับ');
+      alert('✏️ ระบบเปิดช่องทางให้คุณแก้ไขที่อยู่และสไลด์ปรับระยะทางจัดส่งใหม่สำหรับออเดอร์รอบนี้เรียบร้อยครับ');
       document.getElementById('order-name').readOnly = false;
       document.getElementById('order-address').readOnly = false;
       document.getElementById('order-distance-range').disabled = false;
@@ -304,7 +294,7 @@
           </div>
         `;
         badge.innerText = "👑 สมาชิก VIP คิดค่าส่งขั้นบันไดพิเศษ";
-        editBtn.style.display = "block"; // เปิดแสดงปุ่มแก้ไขพิกัดให้สมาชิก VIP สลับจุดส่งของได้
+        editBtn.style.display = "block";
       } else {
         zone.innerHTML = `
           <button type="button" onclick="openLoginModal()" class="btn-text">เข้าสู่ระบบ</button>
@@ -368,9 +358,9 @@
               </div>
             </div>
             <div class="control-box">
-              <button type="button" onclick="updateCart(" + p.id + ", -1)" class="btn-action btn-dec">-</button>
+              <button type="button" onclick="updateCart(` + p.id + `, -1)" class="btn-action btn-dec">-</button>
               <span class="count-display">` + (cart[p.id] || 0) + `</span>
-              <button type="button" onclick="updateCart(" + p.id + ", 1)" class="btn-action btn-inc">+</button>
+              <button type="button" onclick="updateCart(` + p.id + `, 1)" class="btn-action btn-inc">+</button>
             </div>
           </div>
         `;
@@ -450,7 +440,7 @@
       const orderData = {
         customer_name: orderNameInput,
         phone: memberProfile.isLoggedIn ? memberProfile.phone : '0000000000',
-        delivery_address: orderAddressInput + " (ระยะส่งระบุรอบนี้: " + distance + " กม.) [LINE: " + memberProfile.lineId + "]",
+        delivery_address: orderAddressInput + " (ระยะส่งระบุรอบนี้: " + distance + " กม.) [ID LINE: " + memberProfile.lineId + "]",
         sub_district: 'เมืองหนองบัวลำภู',
         items: cart,
         total_price: finalTotal,
