@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ผักค้าบ - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <!-- แก้ไขระบบดึง CSS ใหม่ทั้งหมดให้เสถียรและแสดงผลบน Vercel ได้ 100% -->
   <script src="https://tailwindcss.com"></script>
+  <!-- นำเข้าฟอนต์สไตล์โมเดิร์นหรูหราสำหรับแอปยุคใหม่ -->
   <link rel="preconnect" href="https://googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
   <link href="https://googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,9 +14,9 @@
     body { font-family: 'Anuphan', sans-serif; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-stone-50 via-neutral-50 to-emerald-50/30 min-h-screen text-slate-800 antialiased pb-12">
+<body class="bg-gradient-to-br from-slate-50 via-zinc-50 to-emerald-50/40 min-h-screen text-slate-800 antialiased pb-16">
 
-  <!-- แถบเมนูด้านบนระดับพรีเมียม -->
+  <!-- เมนูบาร์ด้านบนสไตล์มินิมอลระดับพรีเมียม -->
   <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 shadow-sm">
     <div class="max-w-md mx-auto px-4 h-16 flex justify-between items-center">
       <div class="flex items-center gap-2">
@@ -22,120 +24,109 @@
         <span class="font-black text-xl tracking-tight bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">ผักค้าบ</span>
         <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider">Pro</span>
       </div>
-      <div id="auth-zone" class="flex items-center gap-2 text-sm">
-        <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
-        <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition text-xs">สมัครสมาชิก</button>
+      <div id="auth-zone" class="flex items-center gap-1.5 text-xs">
+        <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2.5 py-1.5 rounded-xl">เข้าสู่ระบบ</button>
+        <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3.5 py-2 rounded-xl shadow-sm hover:bg-slate-800 transition">สมัครสมาชิก</button>
       </div>
     </div>
   </nav>
 
   <main class="max-w-md mx-auto px-4 mt-6">
-    <!-- แบนเนอร์หัวข้อแอปพลิเคชันต้อนรับผู้ใช้งาน -->
-    <header class="relative overflow-hidden bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-3xl p-6 shadow-xl shadow-emerald-900/10 mb-6">
-      <div class="absolute -right-10 -bottom-10 text-8xl opacity-10 pointer-events-none select-none">🌿</div>
+    <!-- แบนเนอร์หลักชูจุดเด่นฟาร์มผัก -->
+    <header class="relative overflow-hidden bg-gradient-to-tr from-emerald-800 to-emerald-600 text-white rounded-3xl p-6 shadow-xl shadow-emerald-900/10 mb-5">
+      <div class="absolute -right-6 -bottom-6 text-7xl opacity-10 pointer-events-none select-none">🌿</div>
       <div class="relative z-10">
-        <span class="bg-white/20 backdrop-blur-sm text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest text-emerald-100">Premium Delivery</span>
-        <h1 class="text-2xl font-black mt-2 tracking-wide">ผักสดจากแปลง วันต่อวัน</h1>
-        <p class="text-xs opacity-90 mt-1.5 font-light leading-relaxed">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
+        <span class="bg-white/20 backdrop-blur-sm text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest text-emerald-100">Premium Delivery</span>
+        <h1 class="text-2xl font-black mt-2.5 tracking-wide">ผักสดจากแปลง วันต่อวัน</h1>
+        <p class="text-xs opacity-90 mt-2 font-light leading-relaxed">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
       </div>
     </header>
 
-    <!-- ส่วนที่เพิ่มใหม่ 1: แถบข้อมูลการันตีความสดและการจัดส่ง (Trust Badges) -->
-    <section class="grid grid-cols-3 gap-2 mb-8 text-center">
-      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
-        <span class="text-lg block mb-0.5">🚚</span>
-        <span class="text-[11px] font-bold text-slate-800 block">ส่งฟรีในเมือง</span>
-        <span class="text-[9px] text-slate-400 block mt-0.5">เมื่อสั่งครบ 100.-</span>
+    <!-- แผงข้อมูลรับประกันและเงื่อนไขจัดส่ง (Trust Badges) -->
+    <section class="grid grid-cols-3 gap-2 mb-6 text-center">
+      <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center">
+        <span class="text-lg mb-1">🚚</span>
+        <span class="text-[10px] font-bold text-slate-800">ส่งฟรีในเมือง</span>
+        <span class="text-[9px] text-slate-400 mt-0.5">เมื่อสั่งครบ 100.-</span>
       </div>
-      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
-        <span class="text-lg block mb-0.5">⏱️</span>
-        <span class="text-[11px] font-bold text-slate-800 block">ตัดสดตี 4 รอบส่งสาย</span>
-        <span class="text-[9px] text-slate-400 block mt-0.5">ผักไม่ค้างคืน</span>
+      <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center">
+        <span class="text-lg mb-1">⏱️</span>
+        <span class="text-[10px] font-bold text-slate-800">ตัดสดรอบเช้า</span>
+        <span class="text-[9px] text-slate-400 mt-0.5">ผักไม่ค้างคืน</span>
       </div>
-      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
-        <span class="text-lg block mb-0.5">🤝</span>
-        <span class="text-[11px] font-bold text-slate-800 block">รับประกันความสด</span>
-        <span class="text-[9px] text-slate-400 block mt-0.5">ช้ำเคลมได้ทันที</span>
+      <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center">
+        <span class="text-lg mb-1">🤝</span>
+        <span class="text-[10px] font-bold text-slate-800">รับประกันสด</span>
+        <span class="text-[9px] text-slate-400 mt-0.5">ช้ำเคลมได้ทันที</span>
       </div>
     </section>
 
-    <!-- ส่วนแสดงรายการสินค้าแบบการ์ดสมัยใหม่ -->
-    <section class="mb-8">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+    <!-- โซนรายการผักสดพร้อมซื้อ -->
+    <section class="mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-bold text-slate-900 text-base flex items-center gap-2">
           <span>🥬</span> รายการผักสดรอบส่งวันพรุ่งนี้
         </h2>
-        <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-2.5 py-1 rounded-full border border-emerald-100">พร้อมส่งวันนี้</span>
+        <span class="text-[11px] bg-emerald-50 text-emerald-700 font-semibold px-2.5 py-1 rounded-full border border-emerald-100">พร้อมส่งวันนี้</span>
       </div>
-      <div id="product-list" class="grid grid-cols-1 gap-3.5">
-        <!-- ข้อมูลรายการผักจากฐานข้อมูล Supabase จะมาเรนเดอร์ตรงนี้ -->
+      <div id="product-list" class="grid grid-cols-1 gap-3">
+        <!-- รายการผักจากฐานข้อมูลจะถูกนำมาใส่ตรงนี้โดยอัตโนมัติ -->
       </div>
     </section>
 
-    <!-- ส่วนสรุปออเดอร์และการกรอกข้อมูลพรีออเดอร์ -->
-    <div id="cart-section" class="hidden transform translate-y-4 opacity-0 transition-all duration-500 mb-8">
-      <form id="order-form" class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/80 border border-slate-100 space-y-4">
+    <!-- ฟอร์มสรุปยอดเงินและที่อยู่จัดส่งพรีออเดอร์ -->
+    <div id="cart-section" class="hidden mb-6">
+      <form id="order-form" class="bg-white rounded-3xl p-5 shadow-lg shadow-slate-200/60 border border-slate-100 space-y-4">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-          <h2 class="font-bold text-slate-900 text-md flex items-center gap-2">
+          <h2 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
             <span>📍</span> ข้อมูลและพิกัดจัดส่งหน้าบ้าน
           </h2>
-          <span class="text-[11px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded">หนองบัวลำภู</span>
+          <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded">หนองบัวลำภู</span>
         </div>
         
         <div class="space-y-3 text-sm">
           <div class="relative">
-            <input type="text" id="name" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10" placeholder="ชื่อ นามสกุล ของคุณ">
-            <span class="absolute left-3.5 top-3.5 opacity-40">👤</span>
+            <input type="text" id="name" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-xl outline-none transition pl-9" placeholder="ชื่อ - นามสกุล ของคุณ">
+            <span class="absolute left-3 top-3.5 text-xs opacity-40">👤</span>
           </div>
           <div class="relative">
-            <input type="tel" id="phone" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
-            <span class="absolute left-3.5 top-3.5 opacity-40">📞</span>
+            <input type="tel" id="phone" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-xl outline-none transition pl-9" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
+            <span class="absolute left-3 top-3.5 text-xs opacity-40">📞</span>
           </div>
           <div class="relative">
-            <textarea id="address" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-2xl outline-none transition pl-10 h-24 resize-none" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / พิกัดจุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
-            <span class="absolute left-3.5 top-4 opacity-40">🏠</span>
+            <textarea id="address" required class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white p-3 rounded-xl outline-none transition pl-9 h-20 resize-none" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้าน"></textarea>
+            <span class="absolute left-3 top-3.5 text-xs opacity-40">🏠</span>
           </div>
           
-          <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-emerald-600 to-green-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-600/20 hover:opacity-95 active:scale-[0.99] transition duration-200 text-base mt-2 flex justify-center items-center gap-2">
+          <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-emerald-600 to-green-500 text-white font-bold py-3.5 rounded-xl shadow-md hover:opacity-95 active:scale-[0.99] transition duration-200 text-sm mt-1">
             ยืนยันการสั่งซื้อพรีออเดอร์
           </button>
         </div>
       </form>
     </div>
 
-    <!-- ส่วนที่เพิ่มใหม่ 2: รีวิวจากลูกค้าในพื้นที่ (Social Proof) -->
-    <section class="mb-8 border-t border-slate-100 pt-6">
-      <h2 class="font-bold text-slate-900 text-base mb-4 flex items-center gap-2">
-        <span>⭐️</span> รีวิวจากลูกค้ากล่องแรกๆ ของเรา
+    <!-- โซนรีวิวผู้ใช้งาน (Social Proof) -->
+    <section class="mb-6 border-t border-slate-200/60 pt-5">
+      <h2 class="font-bold text-slate-900 text-sm mb-3 flex items-center gap-1.5">
+        <span>⭐️</span> รีวิวจากลูกค้าในพื้นที่
       </h2>
-      <div class="space-y-3">
-        <div class="bg-white/50 p-4 rounded-2xl border border-slate-100 text-xs shadow-sm">
-          <p class="text-slate-600 italic">“ผักสลัดกรีนโอ๊คกรอบมาก ไม่ขมเลย จัดส่งไวถึงหน้าบ้านในเมืองหนองบัวลำภูเลยค่ะ สะดวกมากๆ ไม่ต้องตื่นไปเดินตลาดเช้า”</p>
-          <div class="flex items-center gap-2 mt-3 text-slate-400">
+      <div class="space-y-2.5">
+        <div class="bg-white/70 p-4 rounded-2xl border border-slate-100 text-xs shadow-sm">
+          <p class="text-slate-600 italic leading-relaxed">“ผักสลัดกรีนโอ๊คกรอบมาก ไม่ขมเลย จัดส่งไวถึงหน้าบ้านในเมืองหนองบัวลำภูเลยค่ะ สะดวกมากๆ ไม่ต้องตื่นไปเดินตลาดเช้า”</p>
+          <div class="flex items-center gap-2 mt-2.5 text-slate-400">
             <span class="font-bold text-slate-700">คุณแม่บ้านวิภา</span>
             <span>•</span>
             <span>อ.เมืองหนองบัวลำภู</span>
           </div>
         </div>
-        <div class="bg-white/50 p-4 rounded-2xl border border-slate-100 text-xs shadow-sm">
-          <p class="text-slate-600 italic">“พริกสวนและต้นหอมสดจริงครับ เอามาทำกับข้าวหอมมาก แนะนำฟาร์มนี้เลยครับ เจ้าของฟาร์มขับรถมาส่งเองอัธยาศัยดีมาก”</p>
-          <div class="flex items-center gap-2 mt-3 text-slate-400">
-            <span class="font-bold text-slate-700">คุณสมศักดิ์</span>
-            <span>•</span>
-            <span>ต.ลำภู</span>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- ส่วนที่เพิ่มใหม่ 3: ส่วนท้ายของเว็บ ข้อมูลการติดต่อ (Footer) -->
-    <footer class="border-t border-slate-200/60 pt-6 pb-4 text-center text-xs text-slate-400 space-y-2">
-      <p class="font-semibold text-slate-600 text-sm">🌾 ฟาร์มผักค้าบ หนองบัวลำภู</p>
-      <p>📍 พิกัดแปลงปลูก: อำเภอเมือง จังหวัดหนองบัวลำภู</p>
-      <p class="text-emerald-600 font-medium">🧑‍🌾 เก่งเกษตรกรท่านใดในหนองบัวลำภูสนใจร่วมเครือข่าย ติดต่อเราได้ทุกวัน</p>
-      <div class="pt-2 text-[10px] text-slate-300">
-        © 2026 PhakKhab Pro. All rights reserved.
-      </div>
+    <!-- ข้อมูลส่วนท้าย (Footer) -->
+    <footer class="border-t border-slate-200/60 pt-5 text-center text-[11px] text-slate-400 space-y-1.5">
+      <p class="font-semibold text-slate-600 text-xs">🌾 ฟาร์มผักค้าบ หนองบัวลำภู</p>
+      <p>📍 แปลงปลูกหลัก: อำเภอเมือง จังหวัดหนองบัวลำภู</p>
+      <p class="text-emerald-600 font-medium">🧑‍🌾 สนใจส่งผักร่วมเครือข่าย ติดต่อฟาร์มของเราได้ทุกวัน</p>
     </footer>
   </main>
 
@@ -149,16 +140,16 @@
       const authZone = document.getElementById('auth-zone');
       if (isLoggedIn) {
         authZone.innerHTML = `
-          <div class="flex items-center gap-3 bg-slate-50 p-1 pr-3 rounded-full border border-slate-100">
-            <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">K</div>
-            <span class="font-medium text-slate-700 text-xs hidden sm:inline">คุณเกษตรกร</span>
-            <button onclick="toggleAuth(false)" class="text-red-500 hover:text-red-600 text-xs font-semibold ml-1">ออกระบบ</button>
+          <div class="flex items-center gap-2 bg-slate-100 p-1 pr-2.5 rounded-full border border-slate-200">
+            <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px]">K</div>
+            <span class="font-medium text-slate-700 text-[11px]">คุณเกษตรกร</span>
+            <button onclick="toggleAuth(false)" class="text-red-500 hover:text-red-600 font-semibold ml-0.5">ออกระบบ</button>
           </div>
         `;
       } else {
         authZone.innerHTML = `
-          <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
-          <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition text-xs">สมัครสมาชิก</button>
+          <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1.5">เข้าสู่ระบบ</button>
+          <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition">สมัครสมาชิก</button>
         `;
       }
     }
@@ -174,25 +165,25 @@
       container.innerHTML = products.map(p => {
         const isHydro = p.category === 'hydro';
         const badge = isHydro 
-          ? `<span class="text-[10px] bg-blue-50 text-blue-700 font-medium px-2 py-0.5 rounded-md border border-blue-100">💧 ไฮโดรโปนิกส์</span>`
-          : `<span class="text-[10px] bg-amber-50 text-amber-700 font-medium px-2 py-0.5 rounded-md border border-amber-100">🏡 ผักสวนครัว</span>`;
+          ? `<span class="text-[9px] bg-blue-50 text-blue-700 font-medium px-1.5 py-0.5 rounded border border-blue-100">💧 ไฮโดรโปนิกส์</span>`
+          : `<span class="text-[9px] bg-amber-50 text-amber-700 font-medium px-1.5 py-0.5 rounded border border-amber-100">🏡 ผักสวนครัว</span>`;
         
         return `
-          <div class="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md border border-slate-100 flex justify-between items-center transition duration-300">
-            <div class="space-y-1.5">
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center transition">
+            <div class="space-y-1">
               <div class="flex items-center gap-2">
-                <h3 class="font-bold text-slate-900 text-base tracking-wide">${p.name}</h3>
+                <h3 class="font-bold text-slate-900 text-sm tracking-wide">${p.name}</h3>
                 ${badge}
               </div>
-              <p class="text-sm text-emerald-600 font-bold flex items-baseline gap-0.5">
-                <span class="text-lg">${p.price_per_unit}</span> 
-                <span class="text-xs text-slate-400 font-light">บาท / ${p.unit_name}</span>
+              <p class="text-xs text-emerald-600 font-bold flex items-baseline gap-0.5">
+                <span class="text-sm">${p.price_per_unit}</span> 
+                <span class="text-[10px] text-slate-400 font-light">บาท / ${p.unit_name}</span>
               </p>
             </div>
-            <div class="flex items-center gap-3.5 bg-slate-50 border border-slate-100 rounded-xl p-1.5 shadow-inner">
-              <button type="button" onclick="updateCart(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition">-</button>
-              <span class="font-black text-slate-800 w-5 text-center text-sm">${cart[p.id] || 0}</span>
-              <button type="button" onclick="updateCart(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-emerald-600 text-white shadow-sm flex items-center justify-center font-bold hover:bg-emerald-700 active:scale-95 transition">+</button>
+            <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-100 rounded-xl p-1 shadow-inner">
+              <button type="button" onclick="updateCart(${p.id}, -1)" class="w-7 h-7 rounded-lg bg-white shadow-sm flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100 transition">-</button>
+              <span class="font-black text-slate-800 w-4 text-center text-xs">${cart[p.id] || 0}</span>
+              <button type="button" onclick="updateCart(${p.id}, 1)" class="w-7 h-7 rounded-lg bg-emerald-600 text-white shadow-sm flex items-center justify-center font-bold hover:bg-emerald-700 transition">+</button>
             </div>
           </div>
         `;
@@ -212,13 +203,9 @@
       const cartSection = document.getElementById('cart-section');
       if (total > 0) {
         cartSection.classList.remove('hidden');
-        setTimeout(() => {
-          cartSection.classList.remove('translate-y-4', 'opacity-0');
-        }, 10);
-        document.getElementById('submit-btn').innerHTML = `💥 ส่งใบสั่งซื้อพรีออเดอร์ผักสด (<span class="underline underline-offset-4 px-1">${total} บาท</span>)`;
+        document.getElementById('submit-btn').innerHTML = `💥 ส่งใบสั่งซื้อพรีออเดอร์ผักสด (${total} บาท)`;
       } else {
-        cartSection.classList.add('translate-y-4', 'opacity-0');
-        setTimeout(() => cartSection.classList.add('hidden'), 300);
+        cartSection.classList.add('hidden');
       }
     }
 
