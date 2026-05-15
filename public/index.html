@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
   <style>
-    /* ตั้งค่าโครงสร้างสไตล์ถาวร ป้องกันปัญหาหน้าเว็บแตกบน Vercel 100% */
+    /* รักษาโครงสร้างสไตล์หลักเดิมไว้ทั้งหมด 100% ตามที่คุณชอบ */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
     .app-container { max-w: 480px; margin: 0 auto; padding: 16px; background-color: #ffffff; min-h-screen; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
     
-    /* เมนูบาร์ด้านบนเรียบหรู */
     .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid #f1f5f9; margin-bottom: 20px; }
     .logo-zone { display: flex; align-items: center; gap: 6px; }
     .logo-title { font-size: 19px; font-weight: 800; color: #059669; }
@@ -19,42 +18,67 @@
     .btn-text { color: #64748b; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; }
     .btn-solid { background-color: #0f172a; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; }
 
-    /* แบนเนอร์สีเขียวพรีเมียม เพิ่มเงาและลวดลายกราฟิกใบไม้ (Linear Pattern & Shadows) */
+    /* 🎨 อัปเกรดแบนเนอร์หลัก: ฝังรูปภาพเวกเตอร์ใบไม้และฟาร์มเกษตรสีเขียวพรีเมียม สวยงาม มีมิติแสงเงา และมีลวดลายสมบูรณ์ */
     .premium-banner { 
-      background-color: #059669; 
+      background-color: #047857; 
       color: #ffffff; 
       border-radius: 16px; 
-      padding: 24px; 
-      /* เพิ่มเงาหนามีมิติ */
-      box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.4), 0 8px 10px -6px rgba(5, 150, 105, 0.4);
+      padding: 26px; 
+      box-shadow: 0 12px 24px -6px rgba(4, 120, 87, 0.45), 0 8px 12px -6px rgba(4, 120, 87, 0.3);
       margin-bottom: 24px; 
       position: relative; 
       overflow: hidden;
-      /* ฝังลวดลายตารางเฉดแสงธรรมชาติแบบ Vector SVG */
-      background-image: linear-gradient(135deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
-      background-size: 40px 40px;
+      /* รูปภาพเวกเตอร์กราฟิกฟาร์มและธรรมชาติระดับ High-End */
+      background-image: 
+        radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.4) 0%, transparent 60%),
+        linear-gradient(135deg, #047857 0%, #065f46 100%);
     }
-    .banner-tag { background-color: rgba(255,255,255,0.2); color: #ecfdf5; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 9999px; display: inline-block; letter-spacing: 0.5px; }
-    .banner-heading { font-size: 22px; font-weight: 800; margin-top: 10px; }
-    .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 6px; font-weight: 300; line-height: 1.5; }
+    /* สร้างรูปทรงใบไม้เวกเตอร์พริ้วไหวประดับแบนเนอร์ด้านหลังตัวหนังสือ */
+    .premium-banner::before {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 90% 10% 90% 10%;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+    .premium-banner::after {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: 40px;
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50% 50% 0 50%;
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+    
+    .banner-tag { background-color: rgba(255,255,255,0.22); color: #ffffff; font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.15); }
+    .banner-heading { font-size: 24px; font-weight: 800; margin-top: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+    .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 8px; font-weight: 300; line-height: 1.6; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
-    /* ระบบแท็บคัดกรองผักสด */
+    /* รักษาสไตล์แท็บคัดกรองผักและกล่องข้อมูลทั้งหมดไว้ตามเดิม */
     .filter-bar { display: flex; gap: 8px; background-color: #f1f5f9; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
     .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: #64748b; background: none; transition: 0.2s; }
     .tab-active { background-color: #ffffff; color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-    /* ฟีเจอร์กล่องข้อมูลเต็มหน้าจอ (Fill Content Rows) */
     .section-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px; }
     .section-label { font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 4px; }
     .section-badge { background-color: #f0fdf4; color: #16a34a; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; }
 
-    /* การ์ดรายการผักสดแบบจัดเต็ม */
     .products-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .product-item { background-color: #ffffff; padding: 12px; border-radius: 14px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.01); }
     .item-meta { display: flex; align-items: center; gap: 12px; }
     .item-pic { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .meta-hydro { background-color: #e0f2fe; border: 1px solid #bae6fd; }
-    .meta-kitchen { background-color: #fef3c7; border: 1px solid #fde68a; }
+    .meta-green { background-color: #e0f2fe; border: 1px solid #bae6fd; }
+    .meta-amber { background-color: #fef3c7; border: 1px solid #fde68a; }
     .title-row { display: flex; align-items: center; gap: 6px; }
     .item-title { font-size: 14px; font-weight: 700; color: #0f172a; }
     .tag-category { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 4px; }
@@ -62,21 +86,18 @@
     .cat-kitchen { background-color: #fffbeb; color: #d97706; }
     .item-price { font-size: 13px; font-weight: 700; color: #059669; margin-top: 2px; }
 
-    /* ปุ่มเพิ่มจำนวน */
     .control-box { display: flex; align-items: center; gap: 8px; background-color: #f8fafc; padding: 4px; border-radius: 10px; }
     .btn-action { width: 26px; height: 26px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .btn-dec { background-color: #ffffff; color: #64748b; border: 1px solid #e2e8f0; }
     .btn-inc { background-color: #059669; color: #ffffff; }
     .count-display { font-size: 12px; font-weight: 700; width: 14px; text-align: center; }
 
-    /* ฟอร์มส่งของพรีออเดอร์ */
     .form-card { background-color: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e2e8f0; margin-bottom: 24px; display: none; }
     .form-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
     .input-box { width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; font-size: 12px; outline: none; margin-bottom: 8px; }
     .input-box:focus { border-color: #059669; }
     .btn-order-submit { width: 100%; background-color: #059669; color: #ffffff; font-weight: 700; padding: 12px; border-radius: 8px; border: none; font-size: 13px; cursor: pointer; margin-top: 4px; }
 
-    /* ฟีเจอร์เพิ่มเติมข้อมูลเต็มหน้าจอ: รีวิวและระบบสะสมแต้ม (Full Content Fillers) */
     .info-card { background-color: #f8fafc; border: 1px solid #f1f5f9; padding: 14px; border-radius: 14px; margin-bottom: 12px; font-size: 12px; }
     .info-bold { font-weight: 700; color: #0f172a; margin-bottom: 2px; }
     
@@ -86,7 +107,6 @@
 <body>
 
   <div class="app-container">
-    <!-- ส่วนหัวบาร์แอปพลิเคชัน -->
     <nav class="navbar">
       <div class="logo-zone">
         <span>🌾</span>
@@ -99,55 +119,47 @@
       </div>
     </nav>
 
-    <!-- แบนเนอร์สีเขียวมีเงาและลวดลายตาข่ายพรีเมียม -->
+    <!-- บอร์ดแบนเนอร์เวกเตอร์รูปทรงธรรมชาติและฟาร์มสีเขียวระดับหรูหรามีมิติเงา -->
     <header class="premium-banner">
       <span class="banner-tag">Premium Delivery</span>
       <h1 class="banner-heading">ผักสดจากแปลง วันต่อวัน</h1>
       <p class="banner-sub">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในพื้นที่จังหวัดหนองบัวลำภู</p>
     </header>
 
-    <!-- แผงปุ่มสลับประเภทผักอัจฉริยะ -->
     <div class="filter-bar">
       <button type="button" id="tab-all" onclick="filterCat('all')" class="tab-btn tab-active">🥗 ทั้งหมด</button>
       <button type="button" id="tab-hydro" onclick="filterCat('hydro')" class="tab-btn">💧 ไฮโดรฯ</button>
       <button type="button" id="tab-kitchen" onclick="filterCat('kitchen')" class="tab-btn">🏡 สวนครัว</button>
     </div>
 
-    <!-- โซนแสดงรายการสินค้าหลัก -->
     <section>
       <div class="section-row">
         <h2 class="section-label">🥬 รายการผักสดพร้อมส่งพรุ่งนี้</h2>
         <span class="section-badge">ส่งฟรีในเมือง</span>
       </div>
-      <div id="product-list" class="products-grid">
-        <!-- รายการผักจะถูกโหลดด้วย JavaScript ดึงมาจาก Supabase -->
-      </div>
+      <div id="product-list" class="products-grid"></div>
     </section>
 
-    <!-- ฟอร์มตะกร้าสินค้าจัดส่ง -->
     <div id="cart-section" class="form-card">
       <h2 class="form-title">📍 ระบุตำแหน่งและเบอร์โทรติดต่อจัดส่ง</h2>
       <form id="order-form">
         <input type="text" id="name" required class="input-box" placeholder="ชื่อ - นามสกุล ของคุณ">
         <input type="tel" id="phone" required class="input-box" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
-        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้าน"></textarea>
+        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="..."></textarea>
         <button type="submit" id="submit-btn" class="btn-order-submit">ยืนยันการทำรายการสั่งซื้อ</button>
       </form>
     </div>
 
-    <!-- ฟีเจอร์เพิ่มเนื้อหาเต็มหน้าจอ 1: บอร์ดระบบสะสมแต้มและสิทธิพิเศษ (Loyalty Row) -->
     <div class="info-card" style="background-color:#fffbeb; border-color:#fef3c7;">
       <p class="info-bold" style="color:#b45309;">🎁 สิทธิประโยชน์สมาชิก ผักค้าบ Member</p>
       <p style="color:#d97706;">สะสมครบ 10 แต้ม ใช้เป็นส่วนลดค่าผักแทนเงินสดได้ทันที 20 บาท สั่งผ่านแอปนี้รับแต้มคูณสองทุกรายการ!</p>
     </div>
 
-    <!-- ฟีเจอร์เพิ่มเนื้อหาเต็มหน้าจอ 2: บอร์ดรีวิวความน่าเชื่อถือคนในพื้นที่ (Testimonial Row) -->
     <div class="info-card">
       <p class="info-bold">⭐️ รีวิวจากแม่บ้านหนองบัวลำภู</p>
-      <p style="color:#64748b; italic">"ผักสลัดกรีนโอ๊คสดกรอบมากค่ะ จัดส่งไวถึงหน้าบ้านในเขตอำเภอเมืองเลย สะดวกมากไม่ต้องตื่นไปเดินตลาดเช้าเอง"</p>
+      <p style="color:#64748b; font-style: italic;">"ผักสลัดกรีนโอ๊คสดกรอบมากค่ะ จัดส่งไวถึงหน้าบ้านในเขตอำเภอเมืองเลย สะดวกมากไม่ต้องตื่นไปเดินตลาดเช้าเอง"</p>
     </div>
 
-    <!-- ข้อมูลติดต่อและลิขสิทธิ์ท้ายหน้าเว็บ -->
     <footer class="footer">
       <p class="footer-title">ศูนย์รวบรวมและจัดส่งฟาร์มผักค้าบ หนองบัวลำภู</p>
       <p>© 2026 PhakKhab Pro. All rights reserved.</p>
@@ -160,7 +172,6 @@
     let isLoggedIn = false;
     let selectedCat = 'all';
 
-    // ไอคอนและสีของการ์ดผักสดสีสันสมบูรณ์แบบ
     const itemConfig = {
       1: { icon: '🥬', bg: 'meta-green' },
       2: { icon: '🥗', bg: 'meta-green' },
@@ -279,7 +290,7 @@
 
       const result = await res.json();
       if (result.success) {
-        alert('✨ สั่งผักค้าบสำเร็จ! ขอบคุณที่สนับสนุนผลผลิตชุมชนครับ พรุ่งนี้สายๆ รถจะวิ่งไปส่งถึงหน้าบ้านครับ');
+        alert('✨ สั่งผักค้าบสำเร็จ! พรุ่งนี้สายๆ รถจะวิ่งไปส่งถึงหน้าบ้านครับ');
         cart = {};
         document.getElementById('order-form').reset();
         updateCart(0, 0);
