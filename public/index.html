@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <!-- ฝังรหัสดีไซน์ระดับพรีเมียมภายในไฟล์โดยตรง บังคับให้ความสวยหรูหราโชว์ผลบน Vercel แน่นอน 100% ไม่แตกเป็นสีดำ -->
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
     .app-container { max-w: 480px; margin: 0 auto; padding: 16px; background-color: #ffffff; min-h-screen; box-shadow: 0 4px 25px rgba(0,0,0,0.04); border-radius: 20px; }
     
@@ -67,7 +68,7 @@
     .count-display { font-size: 12px; font-weight: 700; width: 14px; text-align: center; }
 
     .form-card { background-color: #ffffff; border-radius: 18px; padding: 18px; border: 1px solid #e2e8f0; margin-bottom: 24px; display: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
-    .form-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+    .form-title { font-size: 14px; font-weight: 700; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
     .input-box { width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; font-size: 12px; outline: none; margin-bottom: 8px; }
     .btn-order-submit { width: 100%; background-color: #059669; color: #ffffff; font-weight: 700; padding: 14px; border-radius: 10px; border: none; font-size: 14px; cursor: pointer; box-shadow: 0 4px 6px rgba(5,150,105,0.15); margin-top: 4px; }
 
@@ -115,9 +116,30 @@
       <div id="product-list" class="products-grid"></div>
     </section>
 
+    <!-- ตะกร้าสรุปยอดเงินและฟอร์มจัดส่งพรีออเดอร์ (เพิ่มปุ่มสลับแก้ไขพิกัดยืดหยุ่นได้) -->
     <div id="cart-section" class="form-card">
-      <h2 class="form-title">🛒 รายการสินค้าและยอดรวมตะกร้าของคุณ</h2>
+      <div class="form-title">
+        <h2 style="font-size:14px; color:#0f172a;">🛒 ตะกร้าและพิกัดส่งผักของคุณ</h2>
+        <!-- ปุ่มพิเศษเปิดทางให้สมาชิกกดสลับแก้ไขข้อมูลปลายทางใหม่แยกตามออเดอร์ -->
+        <button type="button" id="btn-edit-delivery" onclick="enableDeliveryEdit()" style="display:none; color:#059669; font-weight:700; background:none; border:none; font-size:11px; cursor:pointer; text-decoration:underline;">✏️ แก้ไขพิกัดรอบนี้</button>
+      </div>
       <form id="order-form" style="display:flex; flex-direction:column; gap:4px;">
+        
+        <!-- โซนช่องกรอกข้อมูลพิกัด (จะดึงข้อมูลสมาชิกมาใส่อัตโนมัติ แต่เปิดให้แก้ไขได้อิสระ) -->
+        <div id="delivery-inputs-zone" style="margin-top:6px; display:flex; flex-direction:column; gap:4px;">
+          <input type="text" id="order-name" required class="input-box" style="margin-bottom:0;" placeholder="ชื่อ - นามสกุล ผู้รับของ">
+          <textarea id="order-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="ระบุ บ้านเลขที่/สถานที่จัดส่งรอบนี้ (เช่น บ้านพัก หรือที่ทำงาน)"></textarea>
+          
+          <!-- แถบปรับระยะทางจัดส่งสไตล์แกร็ปประจำออเดอร์ คํานวณค่าน้ำมันอัตโนมัติ -->
+          <div style="background-color:#f8fafc; border:1px solid #e2e8f0; padding:10px; border-radius:12px; margin-top:4px; margin-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+              <span>📍 ระยะทางจัดส่งของออเดอร์นี้:</span>
+              <span id="order-distance-text" style="color:#059669; font-weight:800;">3 กม.</span>
+            </div>
+            <input type="range" id="order-distance-range" min="1" max="15" value="3" oninput="changeOrderDistance(this.value)" style="width:100%; accent-color:#059669; cursor:pointer;">
+          </div>
+        </div>
+
         <div style="display:flex; gap:8px; margin-bottom:6px;">
           <input type="text" id="promo-code" class="input-box" style="margin-bottom:0;" placeholder="กรอกโค้ดส่วนลดวันสำคัญ (เช่น PROMO2026)">
           <button type="button" onclick="applyPromo()" class="btn-solid" style="background-color:#059669; border-radius:10px;">ใช้โค้ด</button>
@@ -142,6 +164,7 @@
     </footer>
   </div>
 
+  <!-- 👥 หน้าต่างสมัครสมาชิก -->
   <div id="register-modal" class="hidden modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
@@ -152,11 +175,11 @@
         <input type="text" id="reg-name" required class="input-box" style="margin-bottom:0;" placeholder="ชื่อ - นามสกุล ของคุณ">
         <input type="tel" id="reg-phone" required class="input-box" style="margin-bottom:0;" placeholder="เบอร์โทรศัพท์มือถือที่ติดต่อได้">
         <input type="text" id="reg-line" class="input-box" style="margin-bottom:0;" placeholder="ไอดีไลน์ (LINE ID)">
-        <textarea id="reg-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล พิกัดบ้าน"></textarea>
+        <textarea id="reg-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="ระบุบ้านเลขที่พิกัดหลักประจำตัวของคุณ"></textarea>
         
         <div style="background-color:#f8fafc; border:1px solid #e2e8f0; padding:10px; border-radius:12px;">
           <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
-            <span>📍 เลือกพิกัดระยะทางถึงบ้านคุณ:</span>
+            <span>📍 พิกัดระยะทางหลักถึงบ้านคุณ:</span>
             <span id="reg-distance-text" style="color:#059669; font-weight:800;">3 กม.</span>
           </div>
           <input type="range" id="reg-distance" min="1" max="15" value="3" oninput="document.getElementById('reg-distance-text').innerText = this.value + ' กม.'" style="width:100%; accent-color:#059669; cursor:pointer;">
@@ -166,6 +189,7 @@
     </div>
   </div>
 
+  <!-- 👥 หน้าต่างเข้าสู่ระบบ -->
   <div id="login-modal" class="hidden modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
@@ -183,6 +207,9 @@
     let cart = {};
     let selectedCat = 'all';
     let isPromoApplied = false;
+    
+    // พิกัดจัดส่งประจำออเดอร์ปัจจุบัน (ยืดหยุ่นให้สมาชิกแก้ไขสลับสถานที่สั่งซื้อได้อิสระ)
+    let currentOrderConfig = { name: '', address: '', distance: 3 };
     let memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
 
     const itemConfig = {
@@ -212,6 +239,11 @@
       const dist = Number(document.getElementById('reg-distance').value);
 
       memberProfile = { isLoggedIn: true, name: name, phone: phone, lineId: line, address: addr, distance: dist, points: 0 };
+      
+      // ดึงข้อมูลโปรไฟล์หลักมาตั้งเป็นค่าเริ่มต้นของออเดอร์นี้ทันที
+      currentOrderConfig = { name: name, address: addr, distance: dist };
+      syncOrderFormUI();
+
       updateAuthUI();
       closeRegisterModal();
       alert("🎉 สมัครสมาชิกสำเร็จ! ยินดีต้อนรับคุณ " + name + " สู่ครอบครัวผักค้าบ VIP ครับ");
@@ -224,7 +256,11 @@
       const res = await fetch("/api/member/" + phone);
       const data = await res.json();
 
-      memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: 'ดึงข้อมูลพิกัดจัดส่งเดิม', distance: 3, points: data.points };
+      memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: 'กรุณาระบุที่อยู่จัดส่งพิกัดรอบนี้', distance: 3, points: data.points };
+      
+      currentOrderConfig = { name: 'คุณสมาชิก VIP', address: '', distance: 3 };
+      syncOrderFormUI();
+
       updateAuthUI();
       closeLoginModal();
       alert("🔓 เข้าสู่ระบบสำเร็จ! แต้มสะสมคงเหลือรวมของคุณในระบบคือ: 👑 " + data.points + " แต้ม");
@@ -233,13 +269,33 @@
 
     function handleLogout() {
       memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
+      currentOrderConfig = { name: '', address: '', distance: 3 };
+      syncOrderFormUI();
       updateAuthUI();
       if (Object.keys(cart).length > 0) calculateBill();
+    }
+
+    // ฟังก์ชันซิงค์ข้อมูลโปรไฟล์ลงหน้ากากฟอร์มออเดอร์จัดส่ง
+    function syncOrderFormUI() {
+      document.getElementById('order-name').value = currentOrderConfig.name;
+      document.getElementById('order-address').value = currentOrderConfig.address;
+      document.getElementById('order-distance-range').value = currentOrderConfig.distance;
+      document.getElementById('order-distance-text').innerText = currentOrderConfig.distance + " กม.";
+    }
+
+    // ฟังก์ชันเปิดสิทธิ์ให้สมาชิกกดแก้ไขพิกัดจัดส่งสลับสถานที่ได้อิสระประจำออเดอร์
+    function enableDeliveryEdit() {
+      alert('✏️ ระบบเปิดช่องทางให้คุณแก้ไขที่อยู่และสไลด์ปรับระยะทางจัดส่งใหม่สำหรับออเดอร์รอบนี้เรียบร้อยครับครับ');
+      document.getElementById('order-name').readOnly = false;
+      document.getElementById('order-address').readOnly = false;
+      document.getElementById('order-distance-range').disabled = false;
     }
 
     function updateAuthUI() {
       const zone = document.getElementById('auth-zone');
       const badge = document.getElementById('delivery-badge');
+      const editBtn = document.getElementById('btn-edit-delivery');
+      
       if (memberProfile.isLoggedIn) {
         zone.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; background-color:#fff7ed; padding:4px 10px; border-radius:9999px; border:1px solid #ffedd5; font-size:11px; font-weight:700;">
@@ -248,13 +304,21 @@
           </div>
         `;
         badge.innerText = "👑 สมาชิก VIP คิดค่าส่งขั้นบันไดพิเศษ";
+        editBtn.style.display = "block"; // เปิดแสดงปุ่มแก้ไขพิกัดให้สมาชิก VIP สลับจุดส่งของได้
       } else {
         zone.innerHTML = `
           <button type="button" onclick="openLoginModal()" class="btn-text">เข้าสู่ระบบ</button>
           <button type="button" onclick="openRegisterModal()" class="btn-solid">สมัครสมาชิก</button>
         `;
         badge.innerText = "🚚 คิดค่าส่งตามระยะทางจริง";
+        editBtn.style.display = "none";
       }
+    }
+
+    function changeOrderDistance(val) {
+      currentOrderConfig.distance = Number(val);
+      document.getElementById('order-distance-text').innerText = val + " กม.";
+      calculateBill();
     }
 
     function applyPromo() {
@@ -304,9 +368,9 @@
               </div>
             </div>
             <div class="control-box">
-              <button type="button" onclick="updateCart(` + p.id + `, -1)" class="btn-action btn-dec">-</button>
+              <button type="button" onclick="updateCart(" + p.id + ", -1)" class="btn-action btn-dec">-</button>
               <span class="count-display">` + (cart[p.id] || 0) + `</span>
-              <button type="button" onclick="updateCart(` + p.id + `, 1)" class="btn-action btn-inc">+</button>
+              <button type="button" onclick="updateCart(" + p.id + ", 1)" class="btn-action btn-inc">+</button>
             </div>
           </div>
         `;
@@ -333,7 +397,7 @@
       }
       sect.style.display = 'block';
 
-      let distance = memberProfile.isLoggedIn ? memberProfile.distance : 3;
+      let distance = currentOrderConfig.distance;
       let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);
       let deliveryDiscount = 0;
       let discountText = "";
@@ -352,7 +416,7 @@
 
       document.getElementById('bill-details').innerHTML = `
         <div style="display:flex; justify-content:space-between;"><span>ยอดรวมค่าผักสดในตะกร้า:</span><span>` + subTotal + ` บาท</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งตามระยะทางจริง (` + distance + ` กม.):</span><span>` + baseDeliveryFee + ` บาท</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งพิกัดออเดอร์นี้ (` + distance + ` กม.):</span><span>` + baseDeliveryFee + ` บาท</span></div>
         ` + (deliveryDiscount > 0 ? `<div style="display:flex; justify-content:space-between; color:#16a34a;"><span>ส่วนลดสิทธิ์พิเศษ:</span><span>-` + deliveryDiscount + ` บาท ` + discountText + `</span></div>` : "") + `
         <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมชำระสุทธิปลายทาง:</span><span>` + finalTotal + ` บาท</span></div>
         <div style="color:#d97706; font-size:11px; font-weight:700; margin-top:4px; text-align:right;">✨ แต้มสะสมออเดอร์นี้: +` + points + ` แต้ม</div>
@@ -360,22 +424,20 @@
     }
 
     async function submitPreOrder() {
-      if (!memberProfile.isLoggedIn) {
-        alert('📝 เพื่อสิทธิ์ประโยชน์แต้มสะสมและส่วนลดขั้นบันไดค่าส่ง กรุณากรอกแบบฟอร์มข้อมูลติดต่อพิกัดจัดส่งในหน้าต่างถัดไปสักครู่ครับ');
-        openRegisterModal();
+      const orderNameInput = document.getElementById('order-name').value.trim();
+      const orderAddressInput = document.getElementById('order-address').value.trim();
+
+      if (!orderNameInput || !orderAddressInput) {
+        alert('⚠️ กรุณากรอกชื่อและที่อยู่จัดส่งปลายทางของออเดอร์รอบนี้ให้ครบถ้วนก่อนส่งใบสั่งซื้อครับ');
         return;
       }
 
-      // ดักจับและล็อกเบอร์โทรศัพท์ความปลอดภัยชั้นที่ 2 ฝั่งผู้ใช้งานจริง
-      const checkRes = await fetch("/api/member/" + memberProfile.phone);
-      const checkData = await checkRes.json();
-      
       const subTotal = Object.keys(cart).reduce((sum, cId) => {
         const p = products.find(prod => prod.id == cId);
         return sum + (p ? p.price_per_unit * cart[cId] : 0);
       }, 0);
       
-      let distance = memberProfile.distance;
+      let distance = currentOrderConfig.distance;
       let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);
       let deliveryDiscount = subTotal >= 1000 ? baseDeliveryFee : (subTotal >= 500 ? 15 : (subTotal >= 300 ? 10 : (subTotal >= 150 ? 5 : 0)));
       if (isPromoApplied) deliveryDiscount = baseDeliveryFee;
@@ -386,13 +448,13 @@
       const points = Math.floor(finalTotal / 10);
 
       const orderData = {
-        customer_name: memberProfile.name,
-        phone: memberProfile.phone,
-        delivery_address: memberProfile.address + " (ระยะส่งทางแอป: " + distance + " กม.) [ID LINE: " + memberProfile.lineId + "]",
+        customer_name: orderNameInput,
+        phone: memberProfile.isLoggedIn ? memberProfile.phone : '0000000000',
+        delivery_address: orderAddressInput + " (ระยะส่งระบุรอบนี้: " + distance + " กม.) [LINE: " + memberProfile.lineId + "]",
         sub_district: 'เมืองหนองบัวลำภู',
         items: cart,
         total_price: finalTotal,
-        user_tier: 'vip',
+        user_tier: memberProfile.isLoggedIn ? 'vip' : 'guest',
         discount_amount: deliveryDiscount,
         earned_points: points
       };
