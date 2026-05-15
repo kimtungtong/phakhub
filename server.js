@@ -19,7 +19,7 @@ app.get('/api/products', async (req, res) => {
 
 // 2. API สำหรับรับออเดอร์ผักจากกลุ่มบ้านลูกค้าในหนองบัวลำภู
 app.post('/api/orders', async (req, res) => {
-  const { customer_name, phone, delivery_address, sub_district, items, total_price } = req.body
+  const { customer_name, phone, delivery_address, sub_district, items, total_price, user_tier, discount_amount, earned_points } = req.body
   
   const { data, error } = await supabase.from('orders').insert([{
     customer_name,
@@ -27,7 +27,10 @@ app.post('/api/orders', async (req, res) => {
     delivery_address,
     sub_district,
     items,
-    total_price
+    total_price,
+    user_tier,
+    discount_amount,
+    earned_points
   }])
 
   if (error) return res.status(500).json({ error: error.message })
@@ -57,6 +60,22 @@ app.put('/api/admin/orders/:id', async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message })
   res.json({ success: true, message: 'อัปเดตสถานะออเดอร์เรียบร้อยแล้ว' })
+})
+
+// 5. API สำหรับดึงข้อมูลคะแนนสะสมจริงของสมาชิกผ่านเบอร์โทรศัพท์ (ล็อคแต้มไม่ให้หาย)
+app.get('/api/member/:phone', async (req, res) => {
+  const { phone } = req.params
+  const { data, error } = await supabase
+    .from('orders')
+    .select('earned_points')
+    .eq('phone', phone)
+    .eq('user_tier', 'vip')
+
+  if (error) return res.status(500).json({ error: error.message })
+  
+  // รวมคะแนนสะสมทั้งหมดจากออเดอร์ที่ผ่านมาของเบอร์นี้
+  const totalPoints = data ? data.reduce((sum, item) => sum + (item.earned_points || 0), 0) : 0
+  res.json({ points: totalPoints })
 })
 
 const PORT = process.env.PORT || 3000
