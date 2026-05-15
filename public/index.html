@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ Pro - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <!-- ฝังรหัสดีไซน์ระดับพรีเมียมภายในไฟล์โดยตรง บังคับให้ความสวยหรูหราโชว์ผลบน Vercel แน่นอน 100% ไม่แตกเป็นสีดำ -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
     body { background-color: #f8fafc; color: #1e293b; padding-bottom: 60px; }
     .app-container { max-w: 480px; margin: 0 auto; padding: 16px; background-color: #ffffff; min-h-screen; box-shadow: 0 4px 25px rgba(0,0,0,0.04); border-radius: 20px; }
     
+    /* เมนูบาร์ด้านบนเรียบหรูดูแพง */
     .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid #f1f5f9; margin-bottom: 20px; }
     .logo-zone { display: flex; align-items: center; gap: 6px; }
     .logo-title { font-size: 20px; font-weight: 800; color: #059669; }
@@ -17,6 +19,7 @@
     .btn-text { color: #64748b; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; }
     .btn-solid { background-color: #0f172a; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; }
 
+    /* บอร์ดแบนเนอร์สีเขียวเงาหรูหราลวดลายเวกเตอร์ธรรมชาติ */
     .premium-banner { 
       background-color: #047857; color: #ffffff; border-radius: 16px; padding: 24px; 
       box-shadow: 0 12px 24px -6px rgba(4, 120, 87, 0.4), 0 8px 12px -6px rgba(4, 120, 87, 0.2);
@@ -27,6 +30,7 @@
     .banner-heading { font-size: 24px; font-weight: 800; margin-top: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 6px; font-weight: 300; line-height: 1.5; }
 
+    /* แผงปุ่มสลับประเภทผัก */
     .filter-bar { display: flex; gap: 8px; background-color: #f1f5f9; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
     .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: #64748b; background: none; transition: 0.2s; }
     .tab-active { background-color: #ffffff; color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -35,10 +39,12 @@
     .section-label { font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 4px; }
     .section-badge { background-color: #f0fdf4; color: #16a34a; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; border: 1px solid #bbf7d0; }
 
+    /* รายการการ์ดสินค้าผักสดแบบมีรูปภาพพรีเมียม */
     .products-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .product-item { background-color: #ffffff; padding: 12px; border-radius: 16px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.01); }
+    .product-item { background-color: #ffffff; padding: 12px; border-radius: 14px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.01); }
     .item-meta { display: flex; align-items: center; gap: 12px; }
     
+    /* ระบบกรอบรูปผักแยกสีสันตามหมวดหมู่สวยงามเป็นระเบียบ */
     .item-pic { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
     .meta-green-oak { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
     .meta-red-oak { background-color: #fdf2f8; border: 1px solid #fbcfe8; }
@@ -60,12 +66,14 @@
     .cat-kitchen { background-color: #fffbeb; color: #b45309; }
     .item-price { font-size: 13px; font-weight: 700; color: #059669; margin-top: 2px; }
 
+    /* ระบบควบคุมปุ่มกดนับจำนวนเพิ่มลดผัก */
     .control-box { display: flex; align-items: center; gap: 8px; background-color: #f8fafc; padding: 4px; border-radius: 10px; border: 1px solid #f1f5f9; }
     .btn-action { width: 26px; height: 26px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .btn-dec { background-color: #ffffff; color: #64748b; border: 1px solid #e2e8f0; }
     .btn-inc { background-color: #059669; color: #ffffff; box-shadow: 0 2px 4px rgba(5,150,105,0.15); }
     .count-display { font-size: 12px; font-weight: 700; width: 14px; text-align: center; }
 
+    /* ส่วนสรุปใบสั่งซื้อที่เปิดแสดงเมื่อมีผักในตะกร้า */
     .form-card { background-color: #ffffff; border-radius: 18px; padding: 18px; border: 1px solid #e2e8f0; margin-bottom: 24px; display: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
     .form-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
     .input-box { width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; font-size: 12px; outline: none; margin-bottom: 8px; }
@@ -83,6 +91,7 @@
 <body>
 
   <div class="app-container">
+    <!-- เมนูบาร์บาร์แอปพลิเคชันคุมโทนพรีเมียม -->
     <nav class="navbar">
       <div class="logo-zone">
         <span>🌾</span>
@@ -95,18 +104,21 @@
       </div>
     </nav>
 
+    <!-- บอร์ดแบนเนอร์สีเขียวพรีเมียมเงาหนาและลวดลายเวกเตอร์ -->
     <header class="premium-banner">
       <span class="banner-tag">Premium Delivery</span>
       <h1 class="banner-heading">ผักสดจากแปลง วันต่อวัน</h1>
       <p class="banner-sub">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในพื้นที่จังหวัดหนองบัวลำภู</p>
     </header>
 
+    <!-- ปุ่มสลับหมวดหมู่ผักสดรวดเร็ว -->
     <div class="filter-bar">
       <button type="button" id="tab-all" onclick="filterCat('all')" class="tab-btn tab-active">🥗 ทั้งหมด</button>
       <button type="button" id="tab-hydro" onclick="filterCat('hydro')" class="tab-btn">💧 ไฮโดรฯ</button>
       <button type="button" id="tab-kitchen" onclick="filterCat('kitchen')" class="tab-btn">🏡 สวนครัว</button>
     </div>
 
+    <!-- โซนรายการผักสดพร้อมสั่งซื้อ -->
     <section>
       <div class="section-row">
         <h2 class="section-label">🥬 รายการผักสดรอบส่งวันพรุ่งนี้</h2>
@@ -115,21 +127,23 @@
       <div id="product-list" class="products-grid"></div>
     </section>
 
+    <!-- ตะกร้าสรุปยอดเงินและฟอร์มส่งมอบพรีออเดอร์ -->
     <div id="cart-section" class="form-card">
       <h2 class="form-title">🛒 รายการสินค้าและยอดรวมตะกร้าของคุณ</h2>
-      <form id="order-form">
+      <form id="order-form" style="display:flex; flex-direction:column; gap:4px;">
         <div style="display:flex; gap:8px; margin-bottom:6px;">
           <input type="text" id="promo-code" class="input-box" style="margin-bottom:0;" placeholder="กรอกโค้ดส่วนลดวันสำคัญ (เช่น PROMO2026)">
           <button type="button" onclick="applyPromo()" class="btn-solid" style="background-color:#059669; border-radius:10px;">ใช้โค้ด</button>
         </div>
-        <div id="bill-details"></div>
+        <div id="bill-details" style="font-size:12px; color:#475569; background-color:#f8fafc; padding:12px; border-radius:12px; margin-bottom:12px; line-height:1.7;"></div>
         <button type="button" onclick="submitPreOrder()" id="submit-btn" class="btn-order-submit">ยืนยันทำรายการพรีออเดอร์ผักสด</button>
       </form>
     </div>
 
+    <!-- บอร์ดข้อมูลกติกาโปรโมชั่นขั้นบันไดตัวเต็มเพื่อเพิ่มยอดขาย -->
     <div class="info-card">
       <p class="info-bold">🎁 กติกาโปรโมชั่นส่วนลดจัดเต็มประจำฟาร์ม</p>
-      <p style="color:#d97706; line-height:1.5;">
+      <p style="color:#d97706; line-height:1.5; margin-top:4px;">
         • คิดค่าส่ง กม. ละ 5 บาท (ขั้นต่ำ 10 บาท / ไม่เกิน 1.5 กม. ส่งฟรี)<br>
         • สั่งซื้อครบ 150.- ลดค่าส่ง 5.- / ครบ 300.- ลดค่าส่ง 10.- / ครบ 500.- ลดค่าส่ง 15.-<br>
         • สั่งซื้อผักสดรวม **ครบ 1,000 บาทขึ้นไป ส่งฟรี 0 บาท ทุกระยะทาง!**
@@ -142,7 +156,7 @@
     </footer>
   </div>
 
-  <!-- 👥 หน้าต่างป๊อปอัพ "สมัครสมาชิก" -->
+  <!-- 👥 หน้าต่างป๊อปอัพสมัครสมาชิก -->
   <div id="register-modal" class="hidden modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
@@ -150,10 +164,10 @@
         <button type="button" onclick="closeRegisterModal()" style="background:none; border:none; color:#94a3b8; font-weight:bold; cursor:pointer;">✕</button>
       </div>
       <form style="display:flex; flex-direction:column; gap:8px;" onsubmit="handleRegister(event)">
-        <input type="text" id="reg-name" required class="input-box" placeholder="ชื่อ - นามสกุล ของคุณ">
-        <input type="tel" id="reg-phone" required class="input-box" placeholder="เบอร์โทรศัพท์มือถือที่ติดต่อได้">
-        <input type="text" id="reg-line" class="input-box" placeholder="ไอดีไลน์ (LINE ID)">
-        <textarea id="reg-address" required class="input-box" style="height:50px; resize:none;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล พิกัดบ้าน"></textarea>
+        <input type="text" id="reg-name" required class="input-box" style="margin-bottom:0;" placeholder="ชื่อ - นามสกุล ของคุณ">
+        <input type="tel" id="reg-phone" required class="input-box" style="margin-bottom:0;" placeholder="เบอร์โทรศัพท์มือถือที่ติดต่อได้">
+        <input type="text" id="reg-line" class="input-box" style="margin-bottom:0;" placeholder="ไอดีไลน์ (LINE ID)">
+        <textarea id="reg-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล พิกัดบ้าน"></textarea>
         
         <div style="background-color:#f8fafc; border:1px solid #e2e8f0; padding:10px; border-radius:12px;">
           <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
@@ -162,12 +176,12 @@
           </div>
           <input type="range" id="reg-distance" min="1" max="15" value="3" oninput="document.getElementById('reg-distance-text').innerText = this.value + ' กม.'" style="width:100%; accent-color:#059669; cursor:pointer;">
         </div>
-        <button type="submit" class="btn-order-submit">💾 ลงทะเบียนรับสิทธิ์ส่วนลด VIP</button>
+        <button type="submit" class="btn-order-submit" style="margin-top:4px;">💾 ลงทะเบียนรับสิทธิ์ส่วนลด VIP</button>
       </form>
     </div>
   </div>
 
-  <!-- 👥 หน้าต่างป๊อปอัพ "เข้าสู่ระบบ" -->
+  <!-- 👥 หน้าต่างป๊อปอัพเข้าสู่ระบบ -->
   <div id="login-modal" class="hidden modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
@@ -175,8 +189,8 @@
         <button type="button" onclick="closeLoginModal()" style="background:none; border:none; color:#94a3b8; font-weight:bold; cursor:pointer;">✕</button>
       </div>
       <form style="display:flex; flex-direction:column; gap:8px;" onsubmit="handleLogin(event)">
-        <input type="tel" id="login-phone" required class="input-box" placeholder="กรอกเบอร์โทรศัพท์ที่ใช้สมัครสมาชิก">
-        <button type="submit" class="btn-order-submit" style="background-color:#0f172a;">🔓 ล็อกอินดึงแต้มสะสม</button>
+        <input type="tel" id="login-phone" required class="input-box" style="margin-bottom:0;" placeholder="กรอกเบอร์โทรศัพท์ที่ใช้สมัครสมาชิก">
+        <button type="submit" class="btn-order-submit" style="background-color:#0f172a; margin-top:4px;">🔓 ล็อกอินดึงแต้มสะสม</button>
       </form>
     </div>
   </div>
@@ -188,6 +202,7 @@
     let isPromoApplied = false;
     let memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
 
+    /* ระบบจับคู่รูปภาพไอคอนเวกเตอร์ผักสดและเฉดสีการ์ดครบถ้วนทั้ง 20 รายการพรีเมียม */
     const itemConfig = {
       1: { icon: '🥬', bg: 'meta-green-oak' }, 2: { icon: '🥗', bg: 'meta-red-oak' },
       3: { icon: '🥦', bg: 'meta-cos' }, 4: { icon: '🍃', bg: 'meta-butter' },
@@ -217,7 +232,7 @@
       memberProfile = { isLoggedIn: true, name: name, phone: phone, lineId: line, address: addr, distance: dist, points: 0 };
       updateAuthUI();
       closeRegisterModal();
-      alert("สมัครสมาชิกสำเร็จเรียบร้อยครับ!");
+      alert("🎉 สมัครสมาชิกสำเร็จ! ยินดีต้อนรับคุณ " + name + " สู่ครอบครัวผักค้าบ VIP ครับ");
       if (Object.keys(cart).length > 0) calculateBill();
     }
 
@@ -230,7 +245,7 @@
       memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: 'ดึงข้อมูลพิกัดจัดส่งเดิม', distance: 3, points: data.points };
       updateAuthUI();
       closeLoginModal();
-      alert("เข้าสู่ระบบสำเร็จคราบ ยอดแต้มของคุณคือ: " + data.points + " แต้ม");
+      alert("🔓 เข้าสู่ระบบสำเร็จ! แต้มสะสมคงเหลือรวมของคุณในระบบคือ: 👑 " + data.points + " แต้ม");
       if (Object.keys(cart).length > 0) calculateBill();
     }
 
@@ -244,10 +259,18 @@
       const zone = document.getElementById('auth-zone');
       const badge = document.getElementById('delivery-badge');
       if (memberProfile.isLoggedIn) {
-        zone.innerHTML = '<div style="display:flex; align-items:center; gap:6px; background-color:#fff7ed; padding:4px 10px; border-radius:9999px; border:1px solid #ffedd5; font-size:11px; font-weight:700;"><span style="color:#c2410c;">👑 VIP (👑 ' + memberProfile.points + ' แต้ม)</span><button type="button" onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; margin-left:2px;">ออก</button></div>';
+        zone.innerHTML = `
+          <div style="display:flex; align-items:center; gap:6px; background-color:#fff7ed; padding:4px 10px; border-radius:9999px; border:1px solid #ffedd5; font-size:11px; font-weight:700;">
+            <span style="color:#c2410c;">👑 VIP (👑 ` + memberProfile.points + ` แต้ม)</span>
+            <button type="button" onclick="handleLogout()" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; margin-left:4px;">ออก</button>
+          </div>
+        `;
         badge.innerText = "👑 สมาชิก VIP คิดค่าส่งขั้นบันไดพิเศษ";
       } else {
-        zone.innerHTML = '<button type="button" onclick="openLoginModal()" class="btn-text">เข้าสู่ระบบ</button><button type="button" onclick="openRegisterModal()" class="btn-solid">สมัครสมาชิก</button>';
+        zone.innerHTML = `
+          <button type="button" onclick="openLoginModal()" class="btn-text">เข้าสู่ระบบ</button>
+          <button type="button" onclick="openRegisterModal()" class="btn-solid">สมัครสมาชิก</button>
+        `;
         badge.innerText = "🚚 คิดค่าส่งตามระยะทางจริง";
       }
     }
@@ -256,10 +279,10 @@
       const code = document.getElementById('promo-code').value.trim().toUpperCase();
       if (code === 'PROMO2026') {
         isPromoApplied = true;
-        alert('✨ ใช้โค้ดสำเร็จ! ส่งฟรีปลายทาง 0 บาททันทีครับ');
+        alert('✨ ใช้โค้ดสำเร็จ! ออเดอร์จัดส่งฟรี 0 บาททันทีประจำวันจัดกิจกรรมครับ');
       } else {
         isPromoApplied = false;
-        alert('❌ ไม่พบโค้ดโปรโมชั่นนี้ในระบบปัจจุบันครับ');
+        alert('❌ ไม่พบโค้ดโปรโมชั่นวันสำคัญนี้ในรอบระบบปัจจุบันครับ');
       }
       calculateBill();
     }
@@ -267,9 +290,9 @@
     function filterCat(cat) {
       selectedCat = cat;
       ['all', 'hydro', 'kitchen'].forEach(c => {
-        const el = document.getElementById('tab-' + c);
-        if (c === cat) el.className = "tab-btn tab-active";
-        else el.className = "tab-btn";
+        const el = document.getElementById("tab-" + c);
+        if (c === cat) el.classList.add('tab-active');
+        else el.classList.remove('tab-active');
       });
       renderProducts();
     }
@@ -286,7 +309,25 @@
       container.innerHTML = filtered.map(p => {
         const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green-oak' };
         const isHydro = p.category === 'hydro';
-        return '<div class="product-item"><div class="item-meta"><div class="item-pic ' + conf.bg + '">' + conf.icon + '</div><div><div class="title-row"><h3 class="item-title">' + p.name + '</h3><span class="tag-category ' + (isHydro ? 'cat-hydro':'cat-kitchen') + '">' + (isHydro ? '💧 ไฮโดร':'🏡 สวนครัว') + '</span></div><p class="item-price">' + p.price_per_unit + ' บาท <span style="color:#94a3b8; font-weight:400; font-size:11px;">/ ' + p.unit_name + '</span></p></div></div><div class="control-box"><button type="button" onclick="updateCart(' + p.id + ', -1)" class="btn-action btn-dec">-</button><span class="count-display">' + (cart[p.id] || 0) + '</span><button type="button" onclick="updateCart(' + p.id + ', 1)" class="btn-action btn-inc">+</button></div></div>';
+        return `
+          <div class="product-item">
+            <div class="item-meta">
+              <div class="item-pic ` + conf.bg + `">` + conf.icon + `</div>
+              <div>
+                <div class="title-row">
+                  <h3 class="item-title">` + p.name + `</h3>
+                  <span class="tag-category ` + (isHydro ? 'cat-hydro':'cat-kitchen') + `">` + (isHydro ? '💧 ไฮโดร':'🏡 สวนครัว') + `</span>
+                </div>
+                <p class="item-price">` + p.price_per_unit + ` บาท <span style="color:#94a3b8; font-weight:400; font-size:11px;">/ ` + p.unit_name + `</span></p>
+              </div>
+            </div>
+            <div class="control-box">
+              <button type="button" onclick="updateCart(` + p.id + `, -1)" class="btn-action btn-dec">-</button>
+              <span class="count-display">` + (cart[p.id] || 0) + `</span>
+              <button type="button" onclick="updateCart(` + p.id + `, 1)" class="btn-action btn-inc">+</button>
+            </div>
+          </div>
+        `;
       }).join('');
     }
 
@@ -320,55 +361,12 @@
       else if (subTotal >= 300) { deliveryDiscount = 10; discountText = " (ซื้อครบ 300.- ลดค่าส่ง 10.-)"; }
       else if (subTotal >= 150) { deliveryDiscount = 5; discountText = " (ซื้อครบ 150.- ลดค่าส่ง 5.-)"; }
 
-      if (isPromoApplied) { deliveryDiscount = baseDeliveryFee; discountText = " (โค้ดส่วนลดจัดส่งวันสำคัญ)"; }
+      if (isPromoApplied) { deliveryDiscount = baseDeliveryFee; discountText = " (คูปองวันสำคัญส่งฟรี)"; }
       if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;
 
       const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;
       const finalTotal = subTotal + finalDeliveryFee;
       const points = Math.floor(finalTotal / 10);
 
-      document.getElementById('bill-details').innerHTML = '<div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>ค่าผักสดรวมในตะกร้า:</span><span>' + subTotal + ' บาท</span></div><div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>ค่าจัดส่งตามระยะทาง (' + distance + ' กม.):</span><span>' + baseDeliveryFee + ' บาท</span></div>' + (deliveryDiscount > 0 ? '<div style="display:flex; justify-content:space-between; color:#16a34a; margin-bottom:4px;"><span>ส่วนลดค่าจัดส่งพิเศษ:</span><span>-' + deliveryDiscount + ' บาท ' + discountText + '</span></div>' : '') + '<div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมสุทธิปลายทาง:</span><span>' + finalTotal + ' บาท</span></div><div style="color:#d97706; font-weight:700; margin-top:4px; text-align:right; font-size:11px;">✨ แต้มสะสมออเดอร์นี้: +' + points + ' แต้ม</div>';
-    }
-
-    async function submitPreOrder() {
-      if (!memberProfile.isLoggedIn) {
-        alert('📝 เพื่อรักษาสิทธิ์แต้มสะสมและส่วนลดค่าจัดส่ง กรุณากรอกแบบฟอร์มสมัครสมาชิกพิกัดบ้านในป๊อปอัพถัดไปสักครู่ครับ');
-        openRegisterModal();
-        return;
-      }
-
-      const subTotal = Object.keys(cart).reduce((sum, cId) => {
-        const p = products.find(prod => prod.id == cId);
-        return sum + (p ? p.price_per_unit * cart[cId] : 0);
-      }, 0);
-      
-      let distance = memberProfile.distance;
-      let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);
-      let deliveryDiscount = subTotal >= 1000 ? baseDeliveryFee : (subTotal >= 500 ? 15 : (subTotal >= 300 ? 10 : (subTotal >= 150 ? 5 : 0)));
-      if (isPromoApplied) deliveryDiscount = baseDeliveryFee;
-      if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;
-      
-      const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;
-      const finalTotal = subTotal + finalDeliveryFee;
-      const points = Math.floor(finalTotal / 10);
-
-      const orderData = {
-        customer_name: memberProfile.name,
-        phone: memberProfile.phone,
-        delivery_address: memberProfile.address + " (ระยะทางส่งแอป: " + distance + " กม.) [LINE ID: " + memberProfile.lineId + "]",
-        sub_district: 'เมืองหนองบัวลำภู',
-        items: cart,
-        total_price: finalTotal,
-        user_tier: 'vip',
-        discount_amount: deliveryDiscount,
-        earned_points: points
-      };
-
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData)
-      });
-
-      if ((await res.json()).success) {
-        alert('✨ ส่งใบสั่งซื้อสำเร็จพรี
+      document.getElementById('
+bill-details').innerHTML =  <div style="display:flex; justify-content:space-between;"><span>ยอดรวมค่าผักสดในตะกร้า:</span><span> + subTotal +  บาท</span></div> <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งตามระยะทางจริง ( + distance +  กม.):</span><span> + baseDeliveryFee + บาท</span></div> + (deliveryDiscount > 0 ? <div style="display:flex; justify-content:space-between; color:#16a34a;"><span>ส่วนลดสิทธิ์พิเศษ:</span><span>- + deliveryDiscount + บาท + discountText + </span></div> : "") +  <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมชำระสุทธิปลายทาง:</span><span> + finalTotal +  บาท</span></div> <div style="color:#d97706; font-size:11px; font-weight:700; margin-top:4px; text-align:right;">✨ แต้มสะสมออเดอร์นี้: + + points + แต้ม</div>;}async function submitPreOrder() {if (!memberProfile.isLoggedIn) {alert('📝 เพื่อสิทธิ์ประโยชน์แต้มสะสมและส่วนลดขั้นบันไดค่าส่ง กรุณากรอกแบบฟอร์มข้อมูลติดต่อพิกัดจัดส่งในหน้าต่างถัดไปสักครู่ครับ');openRegisterModal();return;}const subTotal = Object.keys(cart).reduce((sum, cId) => {const p = products.find(prod => prod.id == cId);return sum + (p ? p.price_per_unit * cart[cId] : 0);}, 0);let distance = memberProfile.distance;let baseDeliveryFee = distance <= 1.5 ? 0 : Math.max(10, distance * 5);let deliveryDiscount = subTotal >= 1000 ? baseDeliveryFee : (subTotal >= 500 ? 15 : (subTotal >= 300 ? 10 : (subTotal >= 150 ? 5 : 0)));if (isPromoApplied) deliveryDiscount = baseDeliveryFee;if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;const finalTotal = subTotal + finalDeliveryFee;const points = Math.floor(finalTotal / 10);const orderData = {customer_name: memberProfile.name,phone: memberProfile.phone,delivery_address: memberProfile.address + " (ระยะส่งทางแอป: " + distance + " กม.) [ID LINE: " + memberProfile.lineId + "]",sub_district: 'เมืองหนองบัวลำภู',items: cart,total_price: finalTotal,user_tier: 'vip',discount_amount: deliveryDiscount,earned_points: points};const res = await fetch('/api/orders', {method: 'POST',headers: { 'Content-Type': 'application/json' },body: JSON.stringify(orderData)});if ((await res.json()).success) {alert('✨ ส่งใบสั่งซื้อสำเร็จเรียบร้อยครับ! พรุ่งนี้ช่วงสายรถยนต์ของฟาร์มจะวิ่งนำไปส่งมอบผักสดปลอดภัยให้ถึงหน้าบ้านเลยครับ ขอบคุณครับ');cart = {}; isPromoApplied = false;calculateBill();}}fetchProducts();
