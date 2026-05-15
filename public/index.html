@@ -15,32 +15,49 @@
     .auth-buttons { display: flex; gap: 8px; align-items: center; }
     .btn-text { color: #64748b; font-size: 13px; font-weight: 600; background: none; border: none; cursor: pointer; }
     .btn-solid { background-color: #0f172a; color: #ffffff; font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer; }
+    
     .premium-banner { background-color: #047857; color: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px -5px rgba(4, 120, 87, 0.4); margin-bottom: 24px; position: relative; overflow: hidden; background-image: radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.3) 0%, transparent 50%), linear-gradient(135deg, #047857 0%, #065f46 100%); }
     .banner-tag { background-color: rgba(255,255,255,0.22); color: #ffffff; font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; }
     .banner-heading { font-size: 24px; font-weight: 800; margin-top: 12px; }
     .banner-sub { font-size: 12px; opacity: 0.95; margin-top: 8px; font-weight: 300; line-height: 1.6; }
+    
     .filter-bar { display: flex; gap: 8px; background-color: #f1f5f9; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
     .tab-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: #64748b; background: none; }
     .tab-active { background-color: #ffffff; color: #0f172a; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .section-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px; }
     .section-label { font-size: 15px; font-weight: 700; color: #0f172a; }
-    .section-badge { background-color: #f0fdf4; color: #16a34a; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; }
+    .section-badge { background-color: #f0fdf4; color: #16a34a; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; border: 1px solid #d1fae5; }
+    
     .products-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .product-item { background-color: #ffffff; padding: 12px; border-radius: 14px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
     .item-meta { display: flex; align-items: center; gap: 12px; }
     .item-pic { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .meta-green { background-color: #e0f2fe; }
-    .meta-amber { background-color: #fef3c7; }
+    .meta-green-oak { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
+    .meta-red-oak { background-color: #fdf2f8; border: 1px solid #fbcfe8; }
+    .meta-cos { background-color: #ecfdf5; border: 1px solid #a7f3d0; }
+    .meta-butter { background-color: #f0fdf4; border: 1px solid #c6f6d5; }
+    .meta-chili { background-color: #fff5f5; border: 1px solid #fed7d7; }
+    .meta-onion { background-color: #f0fdfa; border: 1px solid #ccfbf1; }
+    .meta-holy { background-color: #f4fbf7; border: 1px solid #d1fae5; }
+    .meta-lemon { background-color: #fefce8; border: 1px solid #fef08a; }
+    .meta-cucumber { background-color: #ecfdf5; border: 1px solid #bbf7d0; }
+    .meta-tomato { background-color: #fff5f5; border: 1px solid #ffccd5; }
+    .meta-cabbage { background-color: #f9fafb; border: 1px solid #e5e7eb; }
+    .meta-mushroom { background-color: #fcf8f2; border: 1px solid #eddcc6; }
+    
+    .title-row { display: flex; align-items: center; gap: 6px; }
     .item-title { font-size: 14px; font-weight: 700; color: #0f172a; }
-    .tag-category { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 4px; margin-left: 4px; }
+    .tag-category { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 4px; }
     .cat-hydro { background-color: #f0fdf4; color: #16a34a; }
     .cat-kitchen { background-color: #fffbeb; color: #d97706; }
     .item-price { font-size: 13px; font-weight: 700; color: #059669; margin-top: 2px; }
+    
     .control-box { display: flex; align-items: center; gap: 8px; background-color: #f8fafc; padding: 4px; border-radius: 10px; }
     .btn-action { width: 26px; height: 26px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; }
     .btn-dec { background-color: #ffffff; color: #64748b; border: 1px solid #e2e8f0; }
     .btn-inc { background-color: #059669; color: #ffffff; }
     .count-display { font-size: 12px; font-weight: 700; width: 14px; text-align: center; }
+    
     .form-card { background-color: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e2e8f0; margin-bottom: 24px; display: none; }
     .form-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
     .input-box { width: 100%; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 8px; font-size: 12px; outline: none; margin-bottom: 8px; }
@@ -59,7 +76,6 @@
         <span class="logo-title">ผักค้าบ</span>
         <span class="logo-badge">Pro</span>
       </div>
-      <!-- โซนสลับหน้าตาระบบสมาชิกออนไลน์ -->
       <div id="auth-zone" class="auth-buttons">
         <button type="button" onclick="toggleAuth(true)" class="btn-text">เข้าสู่ระบบ</button>
         <button type="button" onclick="toggleAuth(true)" class="btn-solid">สมัครสมาชิก</button>
@@ -81,36 +97,52 @@
     <section>
       <div class="section-row">
         <h2 class="section-label">🥬 รายการผักสดพร้อมส่งพรุ่งนี้</h2>
-        <span id="delivery-badge" class="section-badge">ค่าส่งตามระยะทาง</span>
+        <span id="delivery-badge" class="section-badge">🛵 คิดค่าส่งตามระยะทางจริง</span>
       </div>
       <div id="product-list" class="products-grid"></div>
     </section>
 
-    <!-- ตะกร้าและฟอร์มข้อมูลจัดส่งพรีออเดอร์แยกสิทธิ์ประโยชน์ -->
+    <!-- ตะกร้าสินค้าติดตั้งระบบคำนวณขั้นบันไดพรีเมียมตามระยะทาง -->
     <div id="cart-section" class="form-card">
-      <h2 class="form-title">📍 รายละเอียดและพิกัดการจัดส่ง</h2>
+      <h2 class="form-title">📍 ระบุข้อมูลพิกัดและระยะทางจัดส่ง</h2>
       <form id="order-form">
         <input type="text" id="name" required class="input-box" placeholder="ชื่อ - นามสกุล ของคุณ">
         <input type="tel" id="phone" required class="input-box" placeholder="เบอร์โทรศัพท์ที่ติดต่อได้">
-        <textarea id="address" required class="input-box" style="height:60px; resize:none;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
+        <textarea id="address" required class="input-box" style="height:60px; resize:none; margin-bottom:12px;" placeholder="บ้านเลขที่ / หมู่บ้าน / ตำบล / จุดสังเกตเด่นใกล้บ้านคุณ"></textarea>
         
-        <!-- ระบบกรอกคูปองส่วนลดเพิ่มยอดขาย -->
+        <!-- ฟีเจอร์ใหม่: กล่องสไลด์เลือกพิกัดระยะทางสไตล์แกร็ป (Grab-style Distance Selector) -->
+        <div style="background-color:#f1f5f9; padding:12px; border-radius:10px; margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:700; color:#334155; display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span>📍 ระยะทางจากฟาร์มถึงบ้านคุณ:</span>
+            <span id="distance-val" style="color:#059669; font-weight:800;">3 กม.</span>
+          </label>
+          <input type="range" id="distance-range" min="1" max="15" value="3" oninput="changeDistance(this.value)" style="width:100%; accent-color:#059669; cursor:pointer;">
+          <span style="font-size:10px; color:#94a3b8; display:block; margin-top:4px;">*ระบบคิดอัตรา กม. ละ 5 บาท (ขั้นต่ำ 10 บาท / ไม่เกิน 1.5 กม. ส่งฟรี)</span>
+        </div>
+
+        <!-- แผงระบบกรอกโค้ดส่วนลดตามวันสำคัญ -->
         <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <input type="text" id="promo-code" class="input-box" style="margin-bottom:0;" placeholder="โค้ดส่วนลด (ถ้ามี เช่น FREESHIPNB)">
+          <input type="text" id="promo-code" class="input-box" style="margin-bottom:0;" placeholder="โค้ดส่วนลดวันสำคัญ (เช่น PROMO2026)">
           <button type="button" onclick="applyPromo()" class="btn-solid" style="background-color:#059669; border-radius:8px;">ใช้โค้ด</button>
         </div>
 
-        <!-- รายละเอียดบิลค่าผักแบบแจกแจงละเอียด -->
-        <div id="bill-details" style="font-size:12px; color:#475569; background-color:#f8fafc; padding:10px; border-radius:8px; margin-bottom:12px; line-height:1.6;">
+        <!-- รายละเอียดบิลแจกแจงค่าสินค้า ส่วนลดขั้นบันได และยอดชำระหน้าบ้าน -->
+        <div id="bill-details" style="font-size:12px; color:#475569; background-color:#f8fafc; padding:12px; border-radius:10px; margin-bottom:12px; line-height:1.7;">
         </div>
 
         <button type="submit" id="submit-btn" class="btn-order-submit">ยืนยันการทำรายการสั่งซื้อ</button>
       </form>
     </div>
 
+    <!-- บอร์ดข้อมูลกติกาโปรโมชั่นส่วนลดขั้นบันไดตัวใหม่ ( content fill ) -->
     <div class="info-card" style="background-color:#fffbeb; border-color:#fef3c7;">
-      <p class="info-bold" style="color:#b45309;">🎁 สิทธิประโยชน์สมาชิก ผักค้าบ VIP</p>
-      <p style="color:#d97706;">สมัครสมาชิกวันนี้ **รับส่วนลดค่าผักทันที 5% ทุกออเดอร์** พร้อมสะสมแต้มแลกรับสิทธิ์ส่งฟรี (ทุก 100 บาท รับ 10 แต้ม)</p>
+      <p class="info-bold" style="color:#b45309;">🎁 กติกาโปรโมชั่นส่วนลดจัดเต็มประจำฟาร์ม</p>
+      <p style="color:#d97706; line-height:1.5; margin-top:4px;">
+        • สั่งซื้อครบ 150 บาท ──► ลดค่าส่งทันที 5 บาท<br>
+        • สั่งซื้อครบ 300 บาท ──► ลดค่าส่งทันที 10 บาท<br>
+        • สั่งซื้อครบ 500 บาท ──► ลดค่าส่งทันที 15 บาท<br>
+        • สั่งซื้อครบ 1,000 บาท ──► **ส่งฟรี 0 บาท ทุกระยะทาง!**
+      </p>
     </div>
 
     <footer class="footer">
@@ -124,56 +156,55 @@
     let cart = {};
     let isLoggedIn = false;
     let selectedCat = 'all';
-    let isFreeShipping = false;
+    let currentDistance = 3; // ระยะทางเริ่มต้น 3 กิโลเมตร
+    let isPromoApplied = false;
 
     const itemConfig = {
-      1: { icon: '🥬', bg: 'meta-green' }, 2: { icon: '🥗', bg: 'meta-green' },
-      3: { icon: '🥦', bg: 'meta-green' }, 4: { icon: '🍃', bg: 'meta-green' },
-      5: { icon: '🌱', bg: 'meta-green' }, 6: { icon: '🪴', bg: 'meta-green' },
-      7: { icon: '🌶️', bg: 'meta-amber' }, 8: { icon: '🌶️', bg: 'meta-amber' },
-      9: { icon: '🧅', bg: 'meta-amber' }, 10: { icon: '🌿', bg: 'meta-amber' },
-      11: { icon: '🌿', bg: 'meta-amber' }, 12: { icon: '🍋', bg: 'meta-amber' },
-      13: { icon: '🥒', bg: 'meta-amber' }, 14: { icon: '🥣', bg: 'meta-amber' },
-      15: { icon: '🍅', bg: 'meta-amber' }, 16: { icon: '🥬', bg: 'meta-amber' },
-      17: { icon: '🥦', bg: 'meta-amber' }, 18: { icon: '🌱', bg: 'meta-amber' },
-      19: { icon: '🥬', bg: 'meta-green' }, 20: { icon: '🍄', bg: 'meta-amber' }
+      1: { icon: '🥬', bg: 'meta-green-oak' }, 2: { icon: '🥗', bg: 'meta-red-oak' },
+      3: { icon: '🥦', bg: 'meta-cos' }, 4: { icon: '🍃', bg: 'meta-butter' },
+      5: { icon: '🌱', bg: 'meta-cos' }, 6: { icon: '🪴', bg: 'meta-green-oak' },
+      7: { icon: '🌶️', bg: 'meta-chili' }, 8: { icon: '🌶️', bg: 'meta-chili' },
+      9: { icon: '🧅', bg: 'meta-onion' }, 10: { icon: '🌿', bg: 'meta-holy' },
+      11: { icon: '🌿', bg: 'meta-holy' }, 12: { icon: '🍋', bg: 'meta-lemon' },
+      13: { icon: '🥒', bg: 'meta-cucumber' }, 14: { icon: '🥣', bg: 'meta-lemon' },
+      15: { icon: '🍅', bg: 'meta-tomato' }, 16: { icon: '🥬', bg: 'meta-cabbage' },
+      17: { icon: '🥦', bg: 'meta-cabbage' }, 18: { icon: '🌱', bg: 'meta-cucumber' },
+      19: { icon: '🥬', bg: 'meta-cos' }, 20: { icon: '🍄', bg: 'meta-mushroom' }
     };
 
     function toggleAuth(status) {
       isLoggedIn = status;
       const zone = document.getElementById('auth-zone');
-      const deliveryBadge = document.getElementById('delivery-badge');
-      
       if (isLoggedIn) {
         zone.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; background-color:#fff7ed; padding:4px 10px; border-radius:9999px; border:1px solid #ffedd5; font-size:11px; font-weight:700;">
-            <span style="color:#c2410c;">👑 คุณคือสมาชิก (VIP Gold)</span>
+            <span style="color:#c2410c;">👑 สมาชิกระดับ VIP</span>
             <button type="button" onclick="toggleAuth(false)" style="color:#ef4444; background:none; border:none; font-weight:700; cursor:pointer; margin-left:4px;">ออก</button>
           </div>
         `;
-        deliveryBadge.innerText = "สมาชิก VIP ลดค่าผัก 5%";
-        deliveryBadge.style.backgroundColor = "#fff7ed";
-        deliveryBadge.style.color = "#c2410c";
       } else {
         zone.innerHTML = `
           <button type="button" onclick="toggleAuth(true)" class="btn-text">เข้าสู่ระบบ</button>
           <button type="button" onclick="toggleAuth(true)" class="btn-solid">สมัครสมาชิก</button>
         `;
-        deliveryBadge.innerText = "ค่าส่งตามระยะทาง";
-        deliveryBadge.style.backgroundColor = "#f0fdf4";
-        deliveryBadge.style.color = "#16a34a";
       }
       if (Object.keys(cart).length > 0) calculateBill();
     }
 
+    function changeDistance(val) {
+      currentDistance = Number(val);
+      document.getElementById('distance-val').innerText = `${val} กม.`;
+      calculateBill();
+    }
+
     function applyPromo() {
-      const code = document.getElementById('promo-code').value.trim();
-      if (code === 'FREESHIPNB') {
-        isFreeShipping = true;
-        alert('🎉 ใช้โค้ดสำเร็จ! ออเดอร์นี้ของคุณจะได้รับสิทธิ์จัดส่งฟรีหน้าบ้านครับ');
+      const code = document.getElementById('promo-code').value.trim().toUpperCase();
+      if (code === 'PROMO2026') {
+        isPromoApplied = true;
+        alert('✨ ใช้โค้ดสำเร็จ! ออเดอร์วันสำคัญนี้ของคุณจะได้รับสิทธิ์จัดส่งฟรี 0 บาททันทีครับ');
       } else {
-        isFreeShipping = false;
-        alert('❌ ไม่พบโค้ดส่วนลดนี้ในระบบคลาวด์ครับ');
+        isPromoApplied = false;
+        alert('❌ ไม่พบโค้ดโปรโมชั่นนี้ในระบบปัจจุบันครับ');
       }
       calculateBill();
     }
@@ -198,7 +229,7 @@
       const container = document.getElementById('product-list');
       const filtered = products.filter(p => selectedCat === 'all' || p.category === selectedCat);
       container.innerHTML = filtered.map(p => {
-        const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green' };
+        const conf = itemConfig[p.id] || { icon: '🥦', bg: 'meta-green-oak' };
         const isHydro = p.category === 'hydro';
         return `
           <div class="product-item">
@@ -226,7 +257,7 @@
       calculateBill();
     }
 
-    // ฟังก์ชันคำนวณบิลแยกตามสถานะลูกค้าจำลองสไตล์หรูหรามืออาชีพ
+    // 🧮 ฟังก์ชันประมวลผลระบบค่าจัดส่งตามระยะทางจริงและส่วนลดขั้นบันได (Advanced Logistics Logic)
     function calculateBill() {
       const subTotal = Object.keys(cart).reduce((sum, cId) => {
         const p = products.find(prod => prod.id == cId);
@@ -240,20 +271,53 @@
       }
       sect.style.display = 'block';
 
-      // คำนวณส่วนลด 5% หากเป็นสมาชิก VIP
-      const discount = isLoggedIn ? Math.round(subTotal * 0.05) : 0;
-      const deliveryFee = isFreeShipping ? 0 : 20;
-      const finalTotal = subTotal - discount + deliveryFee;
+      // 1. คำนวณค่าส่งตั้งต้น Grab-style (กม. ละ 5 บาท, ขั้นต่ำ 10 บาท, ไม่เกิน 1.5 กม. ส่งฟรี)
+      let baseDeliveryFee = 0;
+      if (currentDistance > 1.5) {
+        baseDeliveryFee = Math.max(10, currentDistance * 5);
+      }
+
+      // 2. คำนวณส่วนลดค่าส่งตามขั้นบันไดของยอดซื้อผักสด (Tiered Discount System)
+      let deliveryDiscount = 0;
+      let discountText = "";
+
+      if (subTotal >= 1000) {
+        deliveryDiscount = baseDeliveryFee; // ครบ 1,000 บาท ส่งฟรีถาวร
+        discountText = " (โปรโมชั่นซื้อครบ 1,000.- ส่งฟรี)";
+      } else if (subTotal >= 500) {
+        deliveryDiscount = 15;
+        discountText = " (โปรโมชั่นซื้อครบ 500.- ลดค่าส่ง 15.-)";
+      } else if (subTotal >= 300) {
+        deliveryDiscount = 10;
+        discountText = " (โปรโมชั่นซื้อครบ 300.- ลดค่าส่ง 10.-)";
+      } else if (subTotal >= 150) {
+        deliveryDiscount = 5;
+        discountText = " (โปรโมชั่นซื้อครบ 150.- ลดค่าส่ง 5.-)";
+      }
+
+      // หากมีการกรอกโค้ดวันสำคัญสำเร็จ ปรับให้ส่วนลดเท่ากับค่าส่งทั้งหมดทันที
+      if (isPromoApplied) {
+        deliveryDiscount = baseDeliveryFee;
+        discountText = " (ใช้โค้ดลดค่าส่งวันสำคัญ 100%)";
+      }
+
+      // คุมยอดไม่ให้ส่วนลดติดลบเกินค่าส่งจริง
+      if (deliveryDiscount > baseDeliveryFee) {
+        deliveryDiscount = baseDeliveryFee;
+      }
+
+      const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;
+      const finalTotal = subTotal + finalDeliveryFee;
       const points = Math.floor(finalTotal / 10);
 
       document.getElementById('bill-details').innerHTML = `
-        <div style="display:flex; justify-content:space-between;"><span>ค่าผักสดรวม:</span><span>${subTotal} บาท</span></div>
-        <div style="display:flex; justify-content:space-between; color:#ef4444;"><span>ส่วนลดสมาชิก VIP (5%):</span><span>-${discount} บาท</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งในหนองบัวลำภู:</span><span>${deliveryFee} บาท</span></div>
-        <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมสุทธิปลายทาง:</span><span>${finalTotal} บาท</span></div>
-        <div style="color:#d97706; font-size:11px; font-weight:700; margin-top:4px; text-align:right;">✨ สั่งซื้อรอบนี้จะได้รับแต้มสะสม: +${points} แต้ม</div>
+        <div style="display:flex; justify-content:space-between;"><span>ยอดรวมค่าผักสดในตะกร้า:</span><span>${subTotal} บาท</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>ค่าจัดส่งตามระยะทางจริง (${currentDistance} กม.):</span><span>${baseDeliveryFee} บาท</span></div>
+        ${deliveryDiscount > 0 ? `<div style="display:flex; justify-content:space-between; color:#16a34a;"><span>ส่วนลดค่าจัดส่งพิเศษ:</span><span>-${deliveryDiscount} บาท ${discountText}</span></div>` : ''}
+        <div style="display:flex; justify-content:space-between; font-weight:700; color:#059669; font-size:14px; border-top:1px dashed #e2e8f0; margin-top:6px; padding-top:4px;"><span>ยอดรวมค่าบริการสุทธิ:</span><span>${finalTotal} บาท</span></div>
+        <div style="color:#d97706; font-size:11px; font-weight:700; margin-top:4px; text-align:right;">✨ แต้มสะสมออเดอร์นี้ของคุณ: +${points} แต้ม</div>
       `;
-      document.getElementById('submit-btn').innerText = `💥 ยืนยันสั่งพรีออเดอร์ยอดรวม (${finalTotal} บาท)`;
+      document.getElementById('submit-btn').innerText = `💥 ยืนยันพรีออเดอร์ผักสด ยอดรวม (${finalTotal} บาท)`;
     }
 
     document.getElementById('order-form').addEventListener('submit', async (e) => {
@@ -263,20 +327,24 @@
         return sum + (p ? p.price_per_unit * cart[cId] : 0);
       }, 0);
       
-      const discount = isLoggedIn ? Math.round(subTotal * 0.05) : 0;
-      const deliveryFee = isFreeShipping ? 0 : 20;
-      const finalTotal = subTotal - discount + deliveryFee;
+      let baseDeliveryFee = currentDistance <= 1.5 ? 0 : Math.max(10, currentDistance * 5);
+      let deliveryDiscount = subTotal >= 1000 ? baseDeliveryFee : (subTotal >= 500 ? 15 : (subTotal >= 300 ? 10 : (subTotal >= 150 ? 5 : 0)));
+      if (isPromoApplied) deliveryDiscount = baseDeliveryFee;
+      if (deliveryDiscount > baseDeliveryFee) deliveryDiscount = baseDeliveryFee;
+      
+      const finalDeliveryFee = baseDeliveryFee - deliveryDiscount;
+      const finalTotal = subTotal + finalDeliveryFee;
       const points = Math.floor(finalTotal / 10);
 
       const orderData = {
         customer_name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
-        delivery_address: document.getElementById('address').value,
+        delivery_address: `${document.getElementById('address').value} (ระยะทางจัดส่งจากฟาร์ม ${currentDistance} กม.)`,
         sub_district: 'เมืองหนองบัวลำภู',
         items: cart,
         total_price: finalTotal,
         user_tier: isLoggedIn ? 'vip' : 'guest',
-        discount_amount: discount,
+        discount_amount: deliveryDiscount,
         earned_points: points
       };
 
@@ -290,7 +358,7 @@
       if (result.success) {
         alert('✨ ส่งใบสั่งซื้อสำเร็จ! พรุ่งนี้ช่วงสายรถยนต์ของฟาร์มจะวิ่งเข้าไปส่งถึงหน้าบ้านครับ');
         cart = {};
-        isFreeShipping = false;
+        isPromoApplied = false;
         document.getElementById('order-form').reset();
         calculateBill();
       }
