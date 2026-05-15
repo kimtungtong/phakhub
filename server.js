@@ -45,5 +45,19 @@ app.get('/api/admin/orders', async (req, res) => {
   res.json(data)
 })
 
+// 4. API สำหรับหน้าแอดมิน ใช้กดเปลี่ยนสถานะออเดอร์จากบนรถ (เช่น จาก pending เป็น delivered)
+app.put('/api/admin/orders/:id', async (req, res) => {
+  const { id } = req.params
+  const { status } = req.body
+
+  const { data, error } = await supabase
+    .from('orders')
+    .update({ status: status })
+    .eq('id', id)
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.json({ success: true, message: 'อัปเดตสถานะออเดอร์เรียบร้อยแล้ว' })
+})
+
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`🚀 เซิร์ฟเวอร์แอป ผักค้าบ รันแล้วที่ http://localhost:${PORT}`))
