@@ -115,7 +115,7 @@
       <div id="product-list" class="products-grid"></div>
     </section>
 
-    <!-- ตะกร้าสรุปยอดเงินและฟอร์มจัดส่งพรีออเดอร์ ยืดหยุ่นแก้พิกัดได้ -->
+    <!-- ตะกร้าสรุปยอดเงินและฟอร์มจัดส่งพรีออเดอร์ (อัปเดตเพิ่มช่องกรอกเบอร์โทรศัพท์เสร็จสิ้น) -->
     <div id="cart-section" class="form-card">
       <div class="form-title">
         <h2 style="font-size:14px; color:#0f172a;">🛒 ตะกร้าและพิกัดส่งผักของคุณ</h2>
@@ -125,6 +125,8 @@
         
         <div id="delivery-inputs-zone" style="margin-top:6px; display:flex; flex-direction:column; gap:4px;">
           <input type="text" id="order-name" required class="input-box" style="margin-bottom:0;" placeholder="ชื่อ - นามสกุล ผู้รับของ">
+          <!-- 🛠️ เพิ่มฟิลด์ช่องกรอกเบอร์ติดต่อจัดส่งลงในตะกร้าหน้าบ้าน -->
+          <input type="tel" id="order-phone" required class="input-box" style="margin-bottom:0;" placeholder="เบอร์โทรศัพท์สำหรับติดต่อส่งของ">
           <textarea id="order-address" required class="input-box" style="height:50px; resize:none; margin-bottom:0;" placeholder="ระบุ บ้านเลขที่/สถานที่จัดส่งรอบนี้ (เช่น บ้านพัก หรือที่ทำงาน)"></textarea>
           
           <div style="background-color:#f8fafc; border:1px solid #e2e8f0; padding:10px; border-radius:12px; margin-top:4px; margin-bottom:6px;">
@@ -204,7 +206,7 @@
     let selectedCat = 'all';
     let isPromoApplied = false;
     
-    let currentOrderConfig = { name: '', address: '', distance: 3 };
+    let currentOrderConfig = { name: '', phone: '', address: '', distance: 3 };
     let memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
 
     const itemConfig = {
@@ -234,7 +236,7 @@
       const dist = Number(document.getElementById('reg-distance').value);
 
       memberProfile = { isLoggedIn: true, name: name, phone: phone, lineId: line, address: addr, distance: dist, points: 0 };
-      currentOrderConfig = { name: name, address: addr, distance: dist };
+      currentOrderConfig = { name: name, phone: phone, address: addr, distance: dist };
       syncOrderFormUI();
 
       updateAuthUI();
@@ -249,8 +251,8 @@
       const res = await fetch("/api/member/" + phone);
       const data = await res.json();
 
-      memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: 'กรุณาระบุที่อยู่จัดส่งพิกัดรอบนี้', distance: 3, points: data.points };
-      currentOrderConfig = { name: 'คุณสมาชิก VIP', address: '', distance: 3 };
+      memberProfile = { isLoggedIn: true, name: 'คุณสมาชิก VIP', phone: phone, lineId: 'เชื่อมคลาวด์แล้ว', address: '', distance: 3, points: data.points };
+      currentOrderConfig = { name: 'คุณสมาชิก VIP', phone: phone, address: '', distance: 3 };
       syncOrderFormUI();
 
       updateAuthUI();
@@ -261,7 +263,7 @@
 
     function handleLogout() {
       memberProfile = { isLoggedIn: false, name: '', phone: '', lineId: '', address: '', distance: 3, points: 0 };
-      currentOrderConfig = { name: '', address: '', distance: 3 };
+      currentOrderConfig = { name: '', phone: '', address: '', distance: 3 };
       syncOrderFormUI();
       updateAuthUI();
       if (Object.keys(cart).length > 0) calculateBill();
@@ -269,14 +271,16 @@
 
     function syncOrderFormUI() {
       document.getElementById('order-name').value = currentOrderConfig.name;
+      document.getElementById('order-phone').value = currentOrderConfig.phone;
       document.getElementById('order-address').value = currentOrderConfig.address;
       document.getElementById('order-distance-range').value = currentOrderConfig.distance;
       document.getElementById('order-distance-text').innerText = currentOrderConfig.distance + " กม.";
     }
 
     function enableDeliveryEdit() {
-      alert('✏️ ระบบเปิดช่องทางให้คุณแก้ไขที่อยู่และสไลด์ปรับระยะทางจัดส่งใหม่สำหรับออเดอร์รอบนี้เรียบร้อยครับ');
+      alert('✏️ ระบบเปิดช่องทางให้คุณแก้ไขชื่อ เบอร์โทร ที่อยู่ และระยะทางจัดส่งใหม่สำหรับออเดอร์รอบนี้เรียบร้อยครับ');
       document.getElementById('order-name').readOnly = false;
+      document.getElementById('order-phone').readOnly = false;
       document.getElementById('order-address').readOnly = false;
       document.getElementById('order-distance-range').disabled = false;
     }
@@ -415,10 +419,21 @@
 
     async function submitPreOrder() {
       const orderNameInput = document.getElementById('order-name').value.trim();
+      const orderPhoneInput = document.getElementById('order-phone').value.trim();
       const orderAddressInput = document.getElementById('order-address').value.trim();
 
-      if (!orderNameInput || !orderAddressInput) {
-        alert('⚠️ กรุณากรอกชื่อและที่อยู่จัดส่งปลายทางของออเดอร์รอบนี้ให้ครบถ้วนก่อนส่งใบสั่งซื้อครับ');
+      if (!orderNameInput || !orderPhoneInput || !orderAddressInput) {
+        alert('⚠️ กรุณากรอกชื่อ เบอร์โทรศัพท์ และที่อยู่จัดส่งปลายทางของออเดอร์รอบนี้ให้ครบถ้วนก่อนส่งใบสั่งซื้อครับ');
+        return;
+      }
+
+      // ดักจับและล็อกความปลอดภัยเบอร์โทรศัพท์ชั้นที่ 2 ตรวจเช็คประวัติ VIP คลาวด์
+      const checkRes = await fetch("/api/member/" + orderPhoneInput);
+      const checkData = await checkRes.json();
+      
+      // บล็อกสิทธิ์กรณีเบอร์นี้เป็น VIP อยู่แล้ว แต่จงใจสั่งซื้อในฐานะบุคคลทั่วไป (Guest) เพื่อป้องกันการฟลัดข้อมูล
+      if (checkData.points > 0 && !memberProfile.isLoggedIn) {
+        alert('❌ แจ้งเตือนความปลอดภัย: เบอร์โทรศัพท์นี้ถูกใช้ผูกบัญชีสมาชิก VIP ในคลังระบบไปเรียบร้อยแล้วครับ กรุณากดปุ่ม "เข้าสู่ระบบ" ด้านบนเพื่อเชื่อมโยงใช้สิทธิ์สะสมคะแนนเดิมครับ');
         return;
       }
 
@@ -439,8 +454,8 @@
 
       const orderData = {
         customer_name: orderNameInput,
-        phone: memberProfile.isLoggedIn ? memberProfile.phone : '0000000000',
-        delivery_address: orderAddressInput + " (ระยะส่งระบุรอบนี้: " + distance + " กม.) [ID LINE: " + memberProfile.lineId + "]",
+        phone: orderPhoneInput,
+        delivery_address: orderAddressInput + " (ระยะส่งระบุรอบนี้: " + distance + " กม.) [ID LINE: " + (memberProfile.isLoggedIn ? memberProfile.lineId : 'บุคคลทั่วไป') + "]",
         sub_district: 'เมืองหนองบัวลำภู',
         items: cart,
         total_price: finalTotal,
