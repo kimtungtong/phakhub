@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ผักค้าบ - พรีออเดอร์ผักสดหนองบัวลำภู</title>
-  <!-- เรียกใช้งานเครื่องมือดีไซน์อย่างถูกต้องผ่าน Play CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- เชื่อมต่อฟอนต์ Google Fonts ที่ทันสมัยและอ่านง่ายสำหรับคนทุกวัย -->
+  <script src="https://tailwindcss.com"></script>
   <link rel="preconnect" href="https://googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
   <link href="https://googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,18 +12,16 @@
     body { font-family: 'Anuphan', sans-serif; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-stone-50 via-neutral-50 to-emerald-50/30 min-h-screen text-slate-800 antialiased pb-24">
+<body class="bg-gradient-to-br from-stone-50 via-neutral-50 to-emerald-50/30 min-h-screen text-slate-800 antialiased pb-12">
 
-  <!-- แถบเมนูด้านบนระดับพรีเมียม (Premium Navigation Bar) -->
-  <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 shadow-sm transition-all">
+  <!-- แถบเมนูด้านบนระดับพรีเมียม -->
+  <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 shadow-sm">
     <div class="max-w-md mx-auto px-4 h-16 flex justify-between items-center">
       <div class="flex items-center gap-2">
         <span class="text-2xl">🌾</span>
         <span class="font-black text-xl tracking-tight bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">ผักค้าบ</span>
         <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider">Pro</span>
       </div>
-      
-      <!-- ระบบจัดการสลับสถานะสมาชิกและการล็อกอินเข้าสู่ระบบ -->
       <div id="auth-zone" class="flex items-center gap-2 text-sm">
         <button onclick="toggleAuth(true)" class="text-slate-600 font-medium hover:text-emerald-600 transition px-2 py-1">เข้าสู่ระบบ</button>
         <button onclick="toggleAuth(true)" class="bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-xl shadow-sm hover:bg-slate-800 transition text-xs">สมัครสมาชิก</button>
@@ -35,7 +31,7 @@
 
   <main class="max-w-md mx-auto px-4 mt-6">
     <!-- แบนเนอร์หัวข้อแอปพลิเคชันต้อนรับผู้ใช้งาน -->
-    <header class="relative overflow-hidden bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-3xl p-6 shadow-xl shadow-emerald-900/10 mb-8">
+    <header class="relative overflow-hidden bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-3xl p-6 shadow-xl shadow-emerald-900/10 mb-6">
       <div class="absolute -right-10 -bottom-10 text-8xl opacity-10 pointer-events-none select-none">🌿</div>
       <div class="relative z-10">
         <span class="bg-white/20 backdrop-blur-sm text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest text-emerald-100">Premium Delivery</span>
@@ -43,6 +39,25 @@
         <p class="text-xs opacity-90 mt-1.5 font-light leading-relaxed">คัดสรรผักไฮโดรโปนิกส์และพืชสวนครัวปลอดภัย ตัดสดช่วงตี 4 วิ่งส่งตรงถึงหน้าบ้านคุณในหนองบัวลำภู</p>
       </div>
     </header>
+
+    <!-- ส่วนที่เพิ่มใหม่ 1: แถบข้อมูลการันตีความสดและการจัดส่ง (Trust Badges) -->
+    <section class="grid grid-cols-3 gap-2 mb-8 text-center">
+      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
+        <span class="text-lg block mb-0.5">🚚</span>
+        <span class="text-[11px] font-bold text-slate-800 block">ส่งฟรีในเมือง</span>
+        <span class="text-[9px] text-slate-400 block mt-0.5">เมื่อสั่งครบ 100.-</span>
+      </div>
+      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
+        <span class="text-lg block mb-0.5">⏱️</span>
+        <span class="text-[11px] font-bold text-slate-800 block">ตัดสดตี 4 รอบส่งสาย</span>
+        <span class="text-[9px] text-slate-400 block mt-0.5">ผักไม่ค้างคืน</span>
+      </div>
+      <div class="bg-white/60 backdrop-blur-sm p-3 rounded-2xl border border-slate-100 shadow-sm">
+        <span class="text-lg block mb-0.5">🤝</span>
+        <span class="text-[11px] font-bold text-slate-800 block">รับประกันความสด</span>
+        <span class="text-[9px] text-slate-400 block mt-0.5">ช้ำเคลมได้ทันที</span>
+      </div>
+    </section>
 
     <!-- ส่วนแสดงรายการสินค้าแบบการ์ดสมัยใหม่ -->
     <section class="mb-8">
@@ -58,7 +73,7 @@
     </section>
 
     <!-- ส่วนสรุปออเดอร์และการกรอกข้อมูลพรีออเดอร์ -->
-    <div id="cart-section" class="hidden transform translate-y-4 opacity-0 transition-all duration-500">
+    <div id="cart-section" class="hidden transform translate-y-4 opacity-0 transition-all duration-500 mb-8">
       <form id="order-form" class="bg-white rounded-3xl p-5 shadow-xl shadow-slate-200/80 border border-slate-100 space-y-4">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3">
           <h2 class="font-bold text-slate-900 text-md flex items-center gap-2">
@@ -87,6 +102,41 @@
         </div>
       </form>
     </div>
+
+    <!-- ส่วนที่เพิ่มใหม่ 2: รีวิวจากลูกค้าในพื้นที่ (Social Proof) -->
+    <section class="mb-8 border-t border-slate-100 pt-6">
+      <h2 class="font-bold text-slate-900 text-base mb-4 flex items-center gap-2">
+        <span>⭐️</span> รีวิวจากลูกค้ากล่องแรกๆ ของเรา
+      </h2>
+      <div class="space-y-3">
+        <div class="bg-white/50 p-4 rounded-2xl border border-slate-100 text-xs shadow-sm">
+          <p class="text-slate-600 italic">“ผักสลัดกรีนโอ๊คกรอบมาก ไม่ขมเลย จัดส่งไวถึงหน้าบ้านในเมืองหนองบัวลำภูเลยค่ะ สะดวกมากๆ ไม่ต้องตื่นไปเดินตลาดเช้า”</p>
+          <div class="flex items-center gap-2 mt-3 text-slate-400">
+            <span class="font-bold text-slate-700">คุณแม่บ้านวิภา</span>
+            <span>•</span>
+            <span>อ.เมืองหนองบัวลำภู</span>
+          </div>
+        </div>
+        <div class="bg-white/50 p-4 rounded-2xl border border-slate-100 text-xs shadow-sm">
+          <p class="text-slate-600 italic">“พริกสวนและต้นหอมสดจริงครับ เอามาทำกับข้าวหอมมาก แนะนำฟาร์มนี้เลยครับ เจ้าของฟาร์มขับรถมาส่งเองอัธยาศัยดีมาก”</p>
+          <div class="flex items-center gap-2 mt-3 text-slate-400">
+            <span class="font-bold text-slate-700">คุณสมศักดิ์</span>
+            <span>•</span>
+            <span>ต.ลำภู</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ส่วนที่เพิ่มใหม่ 3: ส่วนท้ายของเว็บ ข้อมูลการติดต่อ (Footer) -->
+    <footer class="border-t border-slate-200/60 pt-6 pb-4 text-center text-xs text-slate-400 space-y-2">
+      <p class="font-semibold text-slate-600 text-sm">🌾 ฟาร์มผักค้าบ หนองบัวลำภู</p>
+      <p>📍 พิกัดแปลงปลูก: อำเภอเมือง จังหวัดหนองบัวลำภู</p>
+      <p class="text-emerald-600 font-medium">🧑‍🌾 เก่งเกษตรกรท่านใดในหนองบัวลำภูสนใจร่วมเครือข่าย ติดต่อเราได้ทุกวัน</p>
+      <div class="pt-2 text-[10px] text-slate-300">
+        © 2026 PhakKhab Pro. All rights reserved.
+      </div>
+    </footer>
   </main>
 
   <script>
@@ -94,7 +144,6 @@
     let cart = {};
     let isLoggedIn = false;
 
-    // ระบบจําลองสมัครสมาชิก/ล็อกอิน เพื่อความหรูหรามืออาชีพ
     function toggleAuth(status) {
       isLoggedIn = status;
       const authZone = document.getElementById('auth-zone');
@@ -123,7 +172,6 @@
     function renderProducts() {
       const container = document.getElementById('product-list');
       container.innerHTML = products.map(p => {
-        // แยกลูกเล่นป้ายแท็กไอคอนตามประเภทประเภทสินค้า
         const isHydro = p.category === 'hydro';
         const badge = isHydro 
           ? `<span class="text-[10px] bg-blue-50 text-blue-700 font-medium px-2 py-0.5 rounded-md border border-blue-100">💧 ไฮโดรโปนิกส์</span>`
