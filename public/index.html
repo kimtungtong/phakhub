@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ผักค้าบ - พรีออเดอร์ผักสดหนองบัวลำภู</title>
+  <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen pb-24">
+  <main class="max-w-md mx-auto p-4">
+    <!-- ส่วนหัวแอป -->
+    <header class="bg-green-600 p-5 rounded-2xl text-white mb-6 shadow-md text-center">
+      <h1 class="text-2xl font-bold">🌾 ผักค้าบ (PhakKhab)</h1>
+      <p class="text-xs opacity-90 mt-1">ผักไฮโดรฯ และผักสวนครัว ตัดสดส่งตรงจากฟาร์มถึงบ้านคุณ</p>
+    </header>
+
+    <!-- ส่วนแสดงรายการผัก -->
+    <section class="mb-6">
+      <h2 class="font-bold text-gray-800 mb-3 text-lg">🥬 รายการผักสดรอบส่งวันพรุ่งนี้</h2>
+      <div id="product-list" class="grid grid-cols-1 gap-3">
+        <!-- ข้อมูลผักจะถูกดึงมาแสดงตรงนี้อัตโนมัติ -->
+      </div>
+    </section>
+
+    <!-- ส่วนฟอร์มสั่งซื้อและตะกร้าสินค้า -->
+    <div id="cart-section" class="hidden">
+      <form id="order-form" class="bg-white p-4 rounded-xl shadow-md border border-green-100">
+        <h2 class="font-bold text-gray-800 mb-3 text-md border-b pb-2">📍 ข้อมูลจัดส่งในพื้นที่หนองบัวลำภู</h2>
+        <div class="flex flex-col gap-2 text-sm text-gray-700">
+          <input type="text" id="name" placeholder="ชื่อของคุณ" required class="border p-2 rounded-lg">
+          <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์" required class="border p-2 rounded-lg">
+          <textarea id="address" placeholder="บ้านเลขที่ / หมู่บ้าน / พิกัดจุดสังเกต" required class="border p-2 rounded-lg h-20"></textarea>
+          <button type="submit" id="submit-btn" class="bg-green-600 text-white font-bold py-3 rounded-lg mt-2 shadow hover:bg-green-700 transition">
+            ยืนยันการสั่งซื้อ
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    let products = [];
+    let cart = {};
+
+    // ดึงข้อมูลผักจาก Node.js API เมื่อเปิดแอป
+    async function fetchProducts() {
+      const res = await fetch('/api/products');
+      products = await res.json();
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('product-list');
+      container.innerHTML = products.map(p => `
+        <div class="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center border border-gray-100">
+          <div>
+            <h3 class="font-semibold text-gray-900">${p.name}</h3>
+            <p class="text-sm text-green-600 font-bold">${p.price_per_unit} บาท / ${p.unit_name}</p>
+          </div>
+          <div class="flex items-center gap-3 bg-gray-100 rounded-lg p-1">
+            <button onclick="updateCart(${p.id}, -1)" class="px-2 py-1 font-bold text-gray-600">-</button>
+            <span class="font-bold text-gray-800 w-4 text-center">${cart[p.id] || 0}</span>
+            <button onclick="updateCart(${p.id}, 1)" class="px-2 py-1 font-bold text-green-600">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateCart(id, qty) {
+      cart[id] = Math.max(0, (cart[id] || 0) + qty);
+      if (cart[id] === 0) delete cart[id];
+      renderProducts();
+      
+      const total = Object.keys(cart).reduce((sum, cId) => {
+        const p = products.find(prod => prod.id == cId);
+        return sum + (p ? p.price_per_unit * cart[cId] : 0);
+      }, 0);
+
+      const cartSection = document.getElementById('cart-section');
+      if (total > 0) {
+        cartSection.classList.remove('hidden');
+        document.getElementById('submit-btn').innerText = `💥 สั่งซื้อพรีออเดอร์ผักสด (${total} บาท)`;
+      } else {
+        cartSection.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('order-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const total = Object.keys(cart).reduce((sum, cId) => {
+        const p = products.find(prod => prod.id == cId);
+        return sum + (p ? p.price_per_unit * cart[cId] : 0);
+      }, 0);
+
+      const orderData = {
+        customer_name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        delivery_address: document.getElementById('address').value,
+        sub_district: 'เมืองหนองบัวลำภู',
+        items: cart,
+        total_price: total
+      };
+
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert('สั่งผักค้าบสำเร็จ! พรุ่งนี้ช่วงสายรถขนส่งของฟาร์มจะวิ่งเข้าไปส่งถึงหน้าบ้านครับ');
+        cart = {};
+        document.getElementById('order-form').reset();
+        updateCart(0, 0);
+      }
+    });
+
+    fetchProducts();
+  </script>
+</body>
+</html>
